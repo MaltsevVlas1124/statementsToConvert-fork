@@ -56,9 +56,6 @@ jobs:
         # --- Крок 3: Обробка спеціальної папки $SPECIAL_TEX_DIR ---
         if [ -d "$SPECIAL_TEX_DIR" ]; then
           echo "Processing special directory: $SPECIAL_TEX_DIR"
-          # НЕ створюємо папку тут, створимо її нижче, перед кожним cp
-          # mkdir -p "../filtered/$SPECIAL_TEX_DIR" # <--- Видалено або закоментовано
-
           cd "$SPECIAL_TEX_DIR" # Переходимо у вихідну спеціальну папку
 
           # Визначаємо цільову директорію ВІДНОСНО ПОТОЧНОГО МІСЦЯ (source/OlympiadsTheirselves/LaTeX)
@@ -74,7 +71,7 @@ jobs:
             main_file="${base_prefix}.tex"
             if [ -f "$main_file" ]; then
               echo "    Copying main file: $main_file"
-              mkdir -p "$target_dir_relative" # <--- Створюємо цільову папку ПЕРЕД копіюванням
+              mkdir -p "$target_dir_relative" # Створюємо цільову папку ПЕРЕД копіюванням
               cp "$main_file" "$target_dir_relative/"
             fi
 
@@ -99,7 +96,7 @@ jobs:
                 # Копіюємо statement файл, якщо існує
                 if [ -f "$statement_file" ]; then
                    echo "    Copying pair index $index (ID: $identifier): $statement_file"
-                   mkdir -p "$target_dir_relative" # <--- Створюємо цільову папку ПЕРЕД копіюванням
+                   mkdir -p "$target_dir_relative" # Створюємо цільову папку ПЕРЕД копіюванням
                    cp "$statement_file" "$target_dir_relative/"
                 else
                    echo "    Warning: Statement file $statement_file not found for index $index (ID: $identifier)"
@@ -108,10 +105,9 @@ jobs:
                 # Копіюємо tutorial файл, якщо існує
                  if [ -f "$tutorial_file" ]; then
                    echo "    Copying pair index $index (ID: $identifier): $tutorial_file"
-                   mkdir -p "$target_dir_relative" # <--- Створюємо цільову папку ПЕРЕД копіюванням
+                   mkdir -p "$target_dir_relative" # Створюємо цільову папку ПЕРЕД копіюванням
                    cp "$tutorial_file" "$target_dir_relative/"
                  else
-                   # Можна додати попередження, якщо tutorial відсутній для обраної пари
                    echo "    Warning: Tutorial file $tutorial_file not found for index $index (ID: $identifier)"
                  fi
               else
@@ -133,10 +129,10 @@ jobs:
     - name: Move filtered files into destination repo
       run: |
         echo "Moving filtered files to destination..."
-        # Додаємо опцію -T щоб уникнути створення папки filtered всередині dest, якщо dest вже існує
-        # Використовуємо rsync для кращого копіювання/оновлення та можливості видалення зайвих файлів у майбутньому (якщо потрібно)
-        rsync -av --delete filtered/ dest/ || echo "No files to sync or rsync finished with non-critical errors."
-        # Примітка: --delete видалить у dest/ файли, яких немає у filtered/. Якщо це не бажано, прибери --delete.
+        # Використовуємо rsync, АЛЕ виключаємо папку .git з процесу синхронізації/видалення
+        # Важливо додати слеш в кінці '.git/', щоб виключити саме директорію
+        rsync -av --delete --exclude='.git/' filtered/ dest/ || echo "rsync finished with non-critical errors or no changes."
+        # Примітка: --delete видалить у dest/ файли, яких немає у filtered/, КРІМ папки .git. Якщо видалення не бажане, прибери --delete.
 
     - name: Commit and push changes to a new branch
       run: |
@@ -148,7 +144,7 @@ jobs:
         # Створює нову гілку або перемикається на існуючу. -B перезаписує локальну, якщо існує
         git checkout -B "$BRANCH_NAME"
 
-        # Додаємо всі зміни. Краще використовувати git status перед цим для перевірки
+        # Додаємо всі зміни.
         git add .
 
         # Перевірка, чи є що комітити
@@ -159,6 +155,5 @@ jobs:
           git commit -m "Filtered fork from $SRC_REPO (custom logic for $SPECIAL_TEX_DIR)"
           echo "Pushing changes to $BRANCH_NAME..."
           # Використовуємо --force, оскільки ми повністю перезаписуємо цю гілку
-          # Переконайтеся, що це саме та поведінка, яка вам потрібна для цієї гілки
           git push --force origin "$BRANCH_NAME"
         fi
