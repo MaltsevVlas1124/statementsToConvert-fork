@@ -1,0 +1,213 @@
+\documentclass[11pt,a4paper]{extarticleMyMetod}
+
+\usepackage{cmap}
+% \usepackage[T2A]{fontenc}
+% \usepackage[utf8]{inputenc}
+
+\usepackage{fontspec}
+\setmainfont{Arial}[SlantedFont=Calibri-Light,BoldSlantedFont=Calibri-Bold]
+\setsansfont{Verdana}
+% \setmainfont{Verdana}
+% \setsansfont{Arial}
+\setmonofont{Courier New}
+
+\newif{\ifDoColor}
+\DoColortrue
+
+\newif{\ifDoMarkNonGameDev}
+\DoMarkNonGameDevtrue
+
+\usepackage[english,ukrainian]{babel}
+% \usepackage[metapost,truebbox,mplabels]{mfpic}
+\usepackage[metapost]{mfpic}
+\usepackage{enumitem}
+\usepackage{epigraph}
+\usepackage{floatflt}
+% \usepackage{multicol}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{verbatim}
+\usepackage{alltt}
+\usepackage{array}
+\usepackage{ccaption}
+\usepackage{setspace}
+\usepackage{titletoc}
+\usepackage{lastpage}
+\usepackage{refcount}
+\usepackage[breaklinks]{hyperref}
+% \usepackage{breakurl}
+\ifDoColor
+\hypersetup{
+	breaklinks=true,
+    colorlinks,
+    citecolor=green,
+    filecolor=green,
+    linkcolor=red,
+    urlcolor=blue
+}
+\fi
+
+\def\fpage{\pageref{CorrectFirstPageLabel}}  %%% required to avoid conflict between standard definitions of \Hy@setref@link and \lastpage
+
+% \twocolumn
+
+% \usepackage[landscape,russian]{olymppp}
+
+\usepackage[ukrainian]{olymppp}
+
+\usepackage{anysize}
+\usepackage{listcorr}
+
+\def\aftercaptionmark{.}
+\captiondelim{. }
+\def\dib#1{\,#1\discretionary{}{\mbox{$#1$}}{}\,}
+\def\dibbb#1{\)\nolinebreak\hspace{0.0625em plus 0.25em}\(\dib{#1}\)\nolinebreak\hspace{0.0625em plus 0.25em}\(}
+
+\newenvironment{multicols}[1]{}{} % FAKE
+\def\columnwidth{\textwidth}  % FAKE too
+
+\def\MyHorLine#1#2{$\frac{\textnormal{#1}}{\textnormal{#2}}$} 
+
+\def\+{\oplus}
+\def\N{\ifmmode{\mathbb{N}}\else{$\mathbb{N}$}\fi}
+\def\eqdef{\,\stackrel{\mathrm{def}}{=}\,}
+\def\eps{\varepsilon}
+\def\b{\mathbin{\backslash}}
+\def\U{\cup}
+\def\I{\cap}
+\def\sse{\subseteq}
+\def\u{\vee}
+\def\i{\wedge}
+\def\0{\varnothing}
+\def\endproof{\hfill$\blacksquare$\par}
+% \def\mex{\mathrm{mex}}
+\def\mex#1{\operatorname{mex}(\{#1\})}
+% \def\mex#1{\operatorname{\mathrm{mex}}(\{#1\})}
+\def\mexHuge#1{\operatorname{mex}\left(\left\{#1\right\}\right)}
+\def\mexEmptySet{\operatorname{mex}(\varnothing)}
+\newcounter{tempCounterForDMRefs}
+\def\IlyaCkDMpageRef#1{\setcounter{tempCounterForDMRefs}{#1}\stepcounter{tempCounterForDMRefs}\href{https://eprints.cdu.edu.ua/4177/1/paryblev2018 (1).pdf\#page=\arabic{tempCounterForDMRefs}}{#1}}
+\def\IlyaCkDMpageFullRef#1{[\ref{lit:Porublyov-DM},\nolinebreak[3] с.~\IlyaCkDMpageRef{#1}]}
+
+
+\marginsize{20mm}{20mm}{7mm}{20mm}
+
+% \setlength{\columnsep}{10pt}
+% \setlength{\columnseprule}{2pt}
+% \renewcommand{\columnseprulecolor}{\color[rgb]{0.75,0.875,0.875}}
+
+
+
+% % % \renewcommand{\baselinestretch}{1.28125}
+% % % % \renewcommand{\baselinestretch}{1.3125}
+
+\setlength{\parindent}{7.5mm}
+% % % \setlength{\parskip}{1pt plus 9pt minus 0.5 pt}
+\setlength{\parskip}{0.5pt plus 3pt minus 0.25 pt}
+
+
+\newif{\ifallIdeOneLinksCopiedHere}
+\allIdeOneLinksCopiedHerefalse
+
+\newif{\ifStatementOnly}
+\StatementOnlyfalse
+
+\newif{\ifglobalsf}
+\globalsftrue
+
+\ifglobalsf
+\def\mainFontFamily{sffamily}
+\else
+\def\mainFontFamily{rmfamily}
+\fi
+
+\PrintEjudgeConstraintsfalse
+
+
+\opengraphsfile{pics}
+
+\newenvironment{problemAllDefault}[1]{\vspace{10mm}\par\begin{problem}{#1}{Клавіатура (stdin)}{Екран (stdout)}{1 сек}{64 мегабайти}}{\end{problem}}
+
+\def\aaa#1{\begin{problemAllDefault}{#1}
+\input #1.tex
+\end{problemAllDefault}\vspace{1in}}
+
+\renewcommand{\thecontestname}{Алгоритми та структури даних}
+\renewcommand{\thecontestlocation}{ФОТІУС ЧНУімБХ}
+\renewcommand{\thecontestdate}{(2025 р.)}
+
+
+\begin{document}
+
+\tableofcontents
+
+\aaa{ads001}
+\aaa{ads002}
+\aaa{ads003}
+\aaa{ads004}
+\aaa{ads005}
+\aaa{ads006}
+\aaa{ads007}
+\aaa{ads008}
+\aaa{ads009}
+\aaa{ads010}
+\aaa{ads011}
+\aaa{ads012}
+\aaa{ads013}
+\aaa{ads014}
+\aaa{ads015}
+\aaa{ads016}
+\aaa{ads017}
+\aaa{ads018}
+\aaa{ads019}
+\aaa{ads020}
+\aaa{ads021}
+\aaa{ads022}
+\aaa{ads023}
+\aaa{ads024}
+\aaa{ads025}
+\aaa{ads026}
+\aaa{ads027}
+\aaa{ads028}
+\aaa{ads029}
+\aaa{ads030}
+\aaa{ads031}
+\aaa{ads032}
+\aaa{ads033}
+\aaa{ads034}
+\aaa{ads035}
+\aaa{ads036}
+\aaa{ads037}
+\aaa{ads038}
+\aaa{ads039}
+\aaa{ads040}
+\aaa{ads041}
+\aaa{ads042}
+\aaa{ads043}
+\aaa{ads044}
+\aaa{ads045}
+\aaa{ads046}
+\aaa{ads047}
+\aaa{ads048}
+\aaa{ads049}
+\aaa{ads050}
+\aaa{ads051}
+\aaa{ads052}
+\aaa{ads053}
+\aaa{ads054}
+\aaa{ads055}
+\aaa{ads056}
+\aaa{ads057}
+\aaa{ads058}
+\aaa{ads059}
+\aaa{ads060}
+
+
+
+\end{document}

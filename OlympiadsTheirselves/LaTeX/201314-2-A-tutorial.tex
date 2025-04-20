@@ -1,0 +1,27 @@
+%%% \clearpage % TODO: check!!!
+\pagebreak[3] % TODO: check!!!
+
+\Tutorial	Розглянемо два випадки: 
+
+\begin{itemize}[leftmargin=*,itemsep=0pt,partopsep=0pt,topsep=0pt,parsep=0pt]
+\item
+електричка їде \mbox{1-м} вагоном уперед: тоді 
+\mbox{1-й}\nolinebreak[2] у\nolinebreak[2] порядку слідування вагон має напис\nolinebreak[2] <<\textnumero$\,$1>>, 
+\mbox{2-й}\nolinebreak[2] у\nolinebreak[2] порядку слідування\nolinebreak[3] --- напис\nolinebreak[2] <<\textnumero$\,$2>>, 
+тощо. Тобто, ${i\,{=}\,j}$ незалежно від кількості вагонів електрички.
+\item
+електричка їде \mbox{$N$-м} вагоном уперед: тоді 
+\mbox{1-й}\nolinebreak[3] у\nolinebreak[3] порядку слідування вагон має напис\nolinebreak[2] <<\textnumero$\,N$>>, 
+\mbox{2-й}\nolinebreak[3] у\nolinebreak[3] порядку слідування\nolinebreak[3] --- напис\nolinebreak[2] <<\textnumero$\,(N{-}1)$>>, 
+тощо. Тобто, ${i\,{+}\,j}\dibbb{{=}}{N\,{+}\,1}$.
+\end{itemize}
+
+Звідси ясно, що при ${i\,{\neq}\,j}$ точно має місце \mbox{2-й} випадок, для якого $N\dibbb{{=}}{i\,{+}\,j\,{-}\,1}$. Може здатися, ніби при ${i\,{=}\,j}$ слід виводити\nolinebreak[3] \texttt{0} (<<без\nolinebreak[1] додаткової інформації визначити неможливо>>); але є виключення: при ${i\,{=}\,j\,{=}\,12}$, відповідь~12 (електрички не~бувають довшими\nolinebreak[2] 12~вагонів). А\nolinebreak[3] при\nolinebreak[1] $({i\,{=}\,j})$\nolinebreak[3] \texttt{and}\nolinebreak[2] $({j\,{<}\,12})$, таки виводити\nolinebreak[3] \texttt{0}, бо така ситуація можлива при будь-якому\nolinebreak[3] $N$ 
+% від\nolinebreak[3] $j$\nolinebreak[1] до\nolinebreak[3] 12 (обидві межі включно).
+у\nolinebreak[3] межах $j\dib{{\<}}N\dib{{\<}}12$.
+Приклад реалізації: \IdeOne{vIUkUt}.
+Програма містить всього кілька дій (складність~$\Theta(1)$) і\nolinebreak[3] виконується миттєво.
+
+Розв'язки, які виводили правильну відповідь при\nolinebreak[2] ${i\,{\neq}\,j}$, а\nolinebreak[3] при\nolinebreak[2] ${i\,{=}\,j}$\nolinebreak[3] --- \mbox{\emph{завжди}}~\texttt{0}, оцінювалися на 180\nolinebreak[3] балів з~200.
+
+

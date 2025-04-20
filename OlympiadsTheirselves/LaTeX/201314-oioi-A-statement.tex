@@ -1,0 +1,114 @@
+\begin{problemAllDefault}{Тор}
+
+Як відомо, \emph{тор}\nolinebreak[3] --- це поверхня бублика, яку можна отримати таким чином: узяти прямокутник розміром $n$~клітинок по~вертикалі на $m$~клітинок по~горизонталі, склеїти верхню сторону з нижньою (отримається циліндр), потім закрутити циліндр у бублик і склеїти ліву сторону з правою.
+
+\pagebreak[3]
+
+\parbox{100pt}{%
+\begin{mfpic}[2]{0}{50}{0}{20}
+\pen{2pt}
+\polygon{(0,0),(10,20),(50,20),(40,0)}
+\pen{0.5pt}
+\lines{(0.5 , 1),(40.5, 1)}
+\lines{(1   , 2),(41  , 2)}
+\lines{(1.5 , 3),(41.5, 3)}
+\lines{(2   , 4),(42  , 4)}
+\lines{(2.5 , 5),(42.5, 5)}
+\lines{(3   , 6),(43  , 6)}
+\lines{(3.5 , 7),(43.5, 7)}
+\lines{(4   , 8),(44  , 8)}
+\lines{(4.5 , 9),(44.5, 9)}
+\lines{(5   ,10),(45  ,10)}
+\lines{(5.5 ,11),(45.5,11)}
+\lines{(6   ,12),(46  ,12)}
+\lines{(6.5 ,13),(46.5,13)}
+\lines{(7   ,14),(47  ,14)}
+\lines{(7.5 ,15),(47.5,15)}
+\lines{(8   ,16),(48  ,16)}
+\lines{(8.5 ,17),(48.5,17)}
+\lines{(9   ,18),(49  ,18)}
+\lines{(9.5 ,19),(49.5,19)}
+\arrow[l5]\reverse\arrow[l5]\ellipse[-30]{(0,10),2,5}
+\end{mfpic}}%
+\hfill\hfill\hfill%
+\begin{Huge}$\Rightarrow$\end{Huge}
+\hfill\hfill\hfill%
+\parbox{120pt}{%
+\begin{mfpic}[1.6]{0}{70}{0}{10}
+\pen{1pt}
+\ellipse{(5,5),2,5}
+\fillcolor{gray(0.75)}
+\gfill\ellipse{(5,5),2,5}
+\curve{
+(65+2*cosd(-90), 5+5*sind(-90)),
+(65+2*cosd(-60), 5+5*sind(-60)),
+(65+2*cosd(-30), 5+5*sind(-30)),
+(65+2*cosd(  0), 5+5*sind(  0)),
+(65+2*cosd( 30), 5+5*sind( 30)),
+(65+2*cosd( 60), 5+5*sind( 60)),
+(65+2*cosd( 90), 5+5*sind( 90))}
+\pen{0.5pt}
+\lines{(5+2*cosd(-90), 5+5*sind(-90)),  (65+2*cosd(-90), 5+5*sind(-90))}
+\lines{(5+2*cosd(-72), 5+5*sind(-72)),  (65+2*cosd(-72), 5+5*sind(-72))}
+\lines{(5+2*cosd(-54), 5+5*sind(-54)),  (65+2*cosd(-54), 5+5*sind(-54))}
+\lines{(5+2*cosd(-36), 5+5*sind(-36)),  (65+2*cosd(-36), 5+5*sind(-36))}
+\lines{(5+2*cosd(-18), 5+5*sind(-18)),  (65+2*cosd(-18), 5+5*sind(-18))}
+\lines{(5+2*cosd(  0), 5+5*sind(  0)),  (65+2*cosd(  0), 5+5*sind(  0))}
+\lines{(5+2*cosd( 18), 5+5*sind( 18)),  (65+2*cosd( 18), 5+5*sind( 18))}
+\lines{(5+2*cosd( 36), 5+5*sind( 36)),  (65+2*cosd( 36), 5+5*sind( 36))}
+\lines{(5+2*cosd( 54), 5+5*sind( 54)),  (65+2*cosd( 54), 5+5*sind( 54))}
+\lines{(5+2*cosd( 72), 5+5*sind( 72)),  (65+2*cosd( 72), 5+5*sind( 72))}
+\lines{(5+2*cosd( 90), 5+5*sind( 90)),  (65+2*cosd( 90), 5+5*sind( 90))}
+\begin{coords}
+\reflectabout{(30,10)}{(40,20)}
+\arrow[l5]\reverse\arrow[l5]\ellipse{(35,15),2,5}
+\end{coords}
+\end{mfpic}}%
+\hfill\hfill\hfill%
+\begin{Huge}$\Rightarrow$\end{Huge}
+\hfill\hfill\hfill% 
+\parbox{120pt}{%
+\begin{mfpic}[1]{-50}{50}{-30}{30}
+\yscale{0.4}
+\arc[p]{(0,25*sind(288)), 60,120,(50-10*cosd(288))}
+\arc[p]{(0,25*sind(306)), 28,152,(50-10*cosd(306))}
+\arc[p]{(0,25*sind(324)), 20,160,(50-10*cosd(324))}
+\arc[p]{(0,25*sind(342)), 12,168,(50-10*cosd(342))}
+\arc[p]{(0,25*sind(  0)),  3,177,(50-10*cosd(  0))}
+\arc[p]{(0,25*sind( 18)),-10,190,(50-10*cosd( 18))}
+\arc[p]{(0,25*sind( 36)),-20,200,(50-10*cosd( 36))}
+\arc[p]{(0,25*sind( 54)),-50,230,(50-10*cosd( 54))}
+\circle{(0,25*sind( 72)),(50-10*cosd( 72))}
+\circle{(0,25*sind( 90)),(50-10*cosd( 90))}
+\circle{(0,25*sind(108)),(50-10*cosd(108))}
+\arc[p]{(0,25*sind(126)),135,405,(50-10*cosd(126))}
+\arc[p]{(0,25*sind(144)),155,385,(50-10*cosd(144))}
+\arc[p]{(0,25*sind(162)),165,375,(50-10*cosd(162))}
+\arc[p]{(0,25*sind(180)),172,368,(50-10*cosd(180))}
+\arc[p]{(0,25*sind(198)),180,360,(50-10*cosd(198))}
+\arc[p]{(0,25*sind(216)),190,350,(50-10*cosd(216))}
+\arc[p]{(0,25*sind(234)),200,340,(50-10*cosd(234))}
+\arc[p]{(0,25*sind(252)),225,315,(50-10*cosd(252))}
+\end{mfpic}}%
+\hfill~\\    %%%%\vspace*{-0.5\baselineskip}
+
+Назвемо дві клітинки \emph{сусідніми}, якщо вони мають спільну сторону. Нехай за\nolinebreak[2] одну секунду можна перейти з\nolinebreak[2] клітинки до\nolinebreak[2] будь-якої сусідньої з~нею. За~який мінімальний час можна потрапити з\nolinebreak[2] клітинки\nolinebreak[2] $(r_1; c_1)$ у\nolinebreak[2] клітинку\nolinebreak[2] $(r_2; c_2)$? Перше число у\nolinebreak[2] позначенні клітинки\nolinebreak[3] --- номер рядка початкового прямокутника, друге\nolinebreak[3] --- номер стовпчика.
+
+\InputFile  Програма повинна прочитати зі\nolinebreak[3] стандартного входу (клавіатури) шість натуральних чисел, у~порядку $n$,~$m$, $r_1$,~$c_1$,\nolinebreak[2] $r_2$,~$c_2$. 
+Виконуються обмеження: $2\dib{{\<}}{n, m}\dib{{\<}}{1\,000\,000\,000}$,\hspace{1em plus 2em}\linebreak[1]$1\dib{{\<}}{r_1, r_2}\dib{{\<}}n$,\hspace{1em plus 2em}\linebreak[1]$1\dib{{\<}}{c_1,c_2}\dib{{\<}}m$.
+
+\OutputFile Програма має вивести на стандартний вихід (екран) єдине ціле число\nolinebreak[3] --- мінімальний час.
+
+\Examples
+\hspace{-1.5em}
+\begin{exampleSimple}{6.75em}{3em}%
+\exmp{10 10 5 5 1 1}{8}%
+\end{exampleSimple}
+\hspace{-1.5em}
+\begin{exampleSimple}{6.75em}{3em}%
+\exmp{10 10 9 9 1 1}{4}%
+\end{exampleSimple}
+\hspace*{-0.5em}
+
+
+\end{problemAllDefault}

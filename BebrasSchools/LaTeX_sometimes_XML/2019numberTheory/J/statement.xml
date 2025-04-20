@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<problem package="ru.ejudge.sample_contest" id="I" type="standard">
+  <statement language="uk_UA">
+    <description>
+      <p>
+		Напишіть програму, яка вводить одне натуральне число <i>k</i> (2&le;<i>k</i>&le;10<sup>9</sup>) і знаходить, факторіал якого найменшого числа кратний цьому&nbsp;<i>k</i>.
+      </p>
+    </description>
+	<notes>
+	  <notes>
+		<p>
+			6! = 720 ділиться на 9 націло, але жоден з менших факторіалів 1! = 1,  2! = 2,  3! = 6,  4! = 24 чи 5! = 120 не&nbsp;ділиться на&nbsp;9 націло.
+
+		</p>
+	  </notes>
+	</notes>
+  </statement>
+  <examples>
+    <example>
+      <input>9</input>
+      <output>6</output>
+    </example>
+  </examples>
+</problem>

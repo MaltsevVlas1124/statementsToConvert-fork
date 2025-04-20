@@ -1,0 +1,51 @@
+\begin{problemAllDefault}{День програміста}
+
+\ifAfour
+\myflfigaw{\ifnum\pdfoutput>0
+\begin{minipage}{0.5\textwidth}
+\vbox to 0.5\textwidth{\vspace*{-9pt}\noindent\includegraphics[width=\textwidth,keepaspectratio=true]{cal2017patched.pdf}\vss}
+\end{minipage}
+\else
+\begin{minipage}{0.5\textwidth}
+\begin{tiny}\colorbox{yellow}{Run not latex but pdflatex to insert picture}\end{tiny}
+\begin{small}\colorbox{yellow}{Run not latex but pdflatex to insert picture}\end{small}
+\ifnum\number\month > 7 \ERROR \fbox{Run not latex but pdflatex to insert picture}\fi
+\end{minipage}
+\fi}
+\fi
+
+День програміста припадає на \mbox{256-й} день року, у невисокосний рік це 13 вересня, а у високосний~\nolinebreak[3] --- 12. 
+
+Аналогічно пропонується розпізнати число та номер місяця, що припадає на будь-який день за номером~\texttt{n} у не~високосному 2017~році.
+
+
+
+\ifAfour\else
+\ifnum\pdfoutput>0
+\noindent\includegraphics[width=\textwidth,keepaspectratio=true]{cal2017patched.pdf}
+\else
+\begin{tiny}\colorbox{yellow}{Run not latex but pdflatex to insert picture}\par\end{tiny}
+\begin{small}\colorbox{yellow}{Run not latex but pdflatex to insert picture}\end{small}
+\ifnum\number\month > 7 \ERROR \fbox{Run not latex but pdflatex to insert picture}\fi
+\fi
+\fi
+% % % \begin{color}{red}
+% % % Переробити бо тут календар обрізаний знизу\TODO
+% % % \end{color}    
+
+\InputFile
+Єдине число від~1 до~365\nolinebreak[3] --- номер дня у році.
+
+\OutputFile
+Два числа в один рядок через пропуск\nolinebreak[3] --- відповідні день та місяць.
+
+\ifAfour\else
+\vspace{-0.25\baselineskip}
+\fi
+
+\Example
+\hspace{-1em}\begin{exampleSimple}{5em}{5em}
+\exmp{256}{13 9}\end{exampleSimple}\hspace*{-1em}
+
+\end{problemAllDefault}
+

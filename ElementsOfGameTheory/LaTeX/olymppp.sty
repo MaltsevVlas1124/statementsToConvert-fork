@@ -1,0 +1,555 @@
+%
+% Macros for the contest problems
+% for MikTeX: use latex.exe
+% (C) Dmitry S. Lomov (SPb SU Training Centre), 2001-2002
+% (C) Kitten Computing [Andrew Lopatin & Nick Durov], 2001-2002,2003
+% (C) Andrew Stankevich (SPb IFMO Training Center), 2003,2004
+%
+%
+% This is work in progress, please do not try to modify it. -- VIOLATED!
+% VIOLATED BY IlyaCk, but renamed from ``olymp'' to ``olymppp''
+% 
+% Visit http://neerc.ifmo.ru/develop/olymp-sty/index.html for
+% project details.
+%
+
+\ProvidesPackage{olymppp}
+
+
+\newif\if@landscape\@landscapefalse
+\newif\if@ukrainian\@ukrainianfalse
+\newif\if@arabic\@arabicfalse
+
+\newif\ifPrintEjudgeConstraints
+
+\newif\ifUseComaInHeader
+\UseComaInHeadertrue
+
+\DeclareOption{landscape}{
+    \@landscapetrue
+}
+\DeclareOption{ukrainian}{
+    \@ukrainiantrue
+}
+\DeclareOption{arabic}{
+    \@arabictrue
+}
+\ProcessOptions\relax
+
+
+% -- Setup margins --
+%
+% Tex defines to large margins for our purposes. 
+% So we redefine this to use paper more efficiently
+%
+
+\newlength{\thelinewidth}
+
+% \if@landscape
+    % \if@twocolumn
+    % \else
+        % \error Landscape is only supported for two column mode
+    % \fi
+
+    % \ifcase\@ptsize % 10 pt
+        % \hoffset=-15mm
+        % \voffset=-35mm
+        % \textheight=165mm
+        % \textwidth=272mm
+    % \or % 11 pt
+        % \hoffset=-13mm
+        % \voffset=-35mm
+        % \textheight=165mm
+        % \textwidth=272mm
+    % \or % 12 pt
+        % \hoffset=-12mm
+        % \voffset=-35mm
+        % \textheight=162mm
+        % \textwidth=268mm
+    % \fi
+% \else
+    % \ifcase\@ptsize % 10 pt
+        % \hoffset=-26.5mm
+        % \voffset=-35mm
+        % \textheight=250mm
+        % \textwidth=175mm
+    % \or % 11 pt
+        % \hoffset=-25mm
+        % \voffset=-38mm
+        % \textheight=256mm
+        % \textwidth=175mm
+    % \or % 12 pt
+        % \hoffset=-20mm
+        % \voffset=-35mm
+        % \textheight=245mm
+        % \textwidth=175mm
+    % \fi
+
+    % \if@twocolumn
+        % \hoffset=-17.8mm
+        % \voffset=-39mm
+        % \textheight=259mm
+        % \textwidth=194mm
+    % \fi
+% \fi
+
+\if@twocolumn
+    \thelinewidth=0.47\textwidth
+\else
+    \thelinewidth=\textwidth
+\fi
+
+% -- End of setup margins --
+
+% % % % %---------- From package "lastpage" ------------------
+% % % % \def\lastpage@putlabel{\addtocounter{page}{-1}%
+   % % % % \immediate\write\@auxout{\string\newlabel{LastPage}{{}{\thepage}}}%
+   % % % % \addtocounter{page}{1}}
+% % % % \AtEndDocument{\clearpage\lastpage@putlabel}%
+% % % % %---------- end of "lastpage" ------------------
+
+% -- Setup sizes --
+\newlength{\exmpwidinf}
+\newlength{\exmpwidouf}
+\newlength{\exmpwidewid}
+
+% \exmpwidinf=0.35\thelinewidth
+% \exmpwidouf=0.35\thelinewidth
+\exmpwidinf=0.45\thelinewidth
+\exmpwidouf=0.45\thelinewidth
+% \exmpwidewid=0.9\thelinewidth
+\exmpwidewid=1.3\textwidth
+
+\newlength{\afterproblemhead}
+\newlength{\afterconstraints}
+\afterproblemhead=2mm
+\afterconstraints=1.5mm
+
+% % % \newcommand{\problemheadfont}{\Large}
+\newcommand{\problemheadfont}{\large} % --- for metod only, IlyaCk
+\newcommand{\problemsectionfontsav}{\large}
+% \newcommand{\problemsectionfont}{\large}
+\newcommand{\problemsectionfont}{\normalsize}
+\newcommand{\problemintermediatefont}{\large}
+% % % \newcommand{\problemend}{\clearpage}
+\newcommand{\problemend}{\par}
+\newcommand{\problemtextfont}{\normalsize}
+\newcommand{\beforeproblemsectioncaption}{\pagebreak[1]}
+\newcommand{\afterproblemsectioncaption}{\nopagebreak}
+%%% \newcommand{\problemend}{\par\bigskip\par}
+%%% \newcommand{\beforeproblemsectioncaption}{\smallbreak\smallskip}
+%%% \newcommand{\afterproblemsectioncaption}{\smallskip}
+
+\if@twocolumn
+    \afterproblemhead=1mm
+    \afterconstraints=1mm
+    \renewcommand{\problemheadfont}{\large}
+    \renewcommand{\problemsectionfontsav}{\normalsize}
+    \renewcommand{\problemsectionfont}{\normalsize}
+    \renewcommand{\problemintermediatefont}{\small}
+    \renewcommand{\problemend}{\par\medskip}
+    \renewcommand{\problemtextfont}{\footnotesize}
+    \renewcommand{\beforeproblemsectioncaption}{\smallbreak\smallskip}
+    \renewcommand{\afterproblemsectioncaption}{}
+\fi
+
+% \if@ukrainian\else
+% \parindent=0mm
+% \parskip=1ex
+% \fi
+
+\parindent=0mm
+\parskip=3pt plus 3pt
+\flushbottom
+
+
+% -- End of setup sizes --
+
+% -- Setup keywords --
+
+\if@ukrainian
+\def\kw@Problem{Задача}
+\def\kw@InputFileName{Вхідні дані:}
+\def\kw@OutputFileName{Результати:}
+\def\kw@TimeLimit{Обмеження часу:}
+\def\kw@MemoryLimit{Обмеження пам'яті:}
+\def\kw@stdin{клавіатура (стандартний потік введення)}
+\def\kw@stdout{екран (стандартний потік виведення)}
+\def\kw@Task{Завдання.}
+\def\kw@Input{Вхідні дані.}
+\def\kw@Output{Результати.}
+\def\kw@Interaction{Протокол взаємодії.}
+\def\kw@Example{Приклад:}
+\def\kw@Examples{Приклади:}
+\def\kw@Scoring{Оцінювання.}
+\def\kw@page{Сторінка}
+\def\kw@of{з}
+\def\kw@Note{Примітка.}
+\def\kw@Notes{Примітки.}
+\def\kw@Tutorial{Розбір задачі.}
+\else
+\def\kw@Problem{Problem}
+\def\kw@InputFileName{Input file:}
+\def\kw@OutputFileName{Output file:}
+\def\kw@TimeLimit{Time limit:}
+\def\kw@MemoryLimit{Memory limit:}
+\def\kw@stdin{standard input}
+\def\kw@stdout{standard output}
+\def\kw@Task{Task}
+\def\kw@Input{Input}
+\def\kw@Output{Output}
+\def\kw@Interaction{Interaction protocol}
+\def\kw@Example{Example}
+\def\kw@Examples{Examples}
+\def\kw@Scoring{Scoring}
+\def\kw@page{Page}
+\def\kw@of{of}
+\def\kw@Note{Note}
+\def\kw@Notes{Notes}
+\def\kw@Tutorial{Tutorial for the problem}
+\fi
+
+% -- End of setup keywords --
+
+
+% -- Problem sections --
+
+\newcommand{\createsection}{\@newsection}
+
+\def\@newsection#1#2{\DeclareRobustCommand{#1}{%
+{\beforeproblemsectioncaption\bf\problemsectionfont%
+\textsf{#2}\hspace{0.25em}}
+\afterproblemsectioncaption}
+}
+
+\createsection{\Task}{\kw@Task}
+\createsection{\InputFile}{\kw@Input}
+\createsection{\Note}{\kw@Note}
+\createsection{\Notes}{\kw@Notes}
+\createsection{\OutputFile}{\kw@Output}
+\createsection{\Example}{\kw@Example}
+\createsection{\Examples}{\kw@Examples}
+\createsection{\Scoring}{\kw@Scoring}
+\createsection{\Tutorial}{\kw@Tutorial}
+\createsection{\Interaction}{\kw@Interaction}
+
+\def\MyParagraph#1{{\beforeproblemsectioncaption\noindent\bf\problemsectionfont
+\hspace{\parindent}\textsf{#1}\hspace{0.25em}}
+\afterproblemsectioncaption}
+
+
+% -- End of problem sections
+
+% -- Default limits --
+
+\if@ukrainian
+\def\defaultmemorylimit{256 мегабайтів}
+\else
+\def\defaultmemorylimit{256 megabytes}
+\fi
+
+\def\defaultinput{\kw@stdin}
+\def\defaultoutput{\kw@stdout}
+\if@ukrainian
+\def\defaulttimelimit{1 сек.}
+\else
+\def\defaulttimelimit{1 sec.}
+\fi
+
+% -- End of default limits --
+
+% -- Problem environment --
+
+\def\LatinAlph#1{\expandafter\@LatinAlph\csname c@#1\endcsname}
+\def\@LatinAlph#1{%
+  \ifcase#1\or A\or B\or C\or D\or E\or F\or G\or H\or I\or J\or K\or L\or M\or N\or O\or P\or Q\or R\or S\or T\or U\or V\or W\or X\or Y\or Z\else\arabic{#1}\fi}
+
+% % % \def\currentProblem{\if@arabic\arabic{problem}\else\if@ukrainian\LatinAlph{problem}\else\Alph{problem}\fi\fi}
+%%\def\currentProblem{cpstart\if@arabic\arabic{problem}\else\LatinAlph{problem}\fi{}cpfinish}
+\def\currentProblem{\arabic{problem}}
+
+% % % \global\newcommand\theproblem{\thecontest\currentProblem}
+\global\newcommand\theproblem{\thesubsection:\currentProblem}
+\newcommand\thecontest{\arabic{contest}}
+
+
+\newcounter{problem}[subsection]
+
+\newenvironment{problem}[5]{%
+% % % % -- Default memory limit --
+% % % % :FIXME:
+% % % \def\@t{#5}
+%%%%%%%%%%%%%%
+% % % \ifx\@t\empty
+    % % % \def\@memorylimit{\defaultmemorylimit}
+% % % \else
+% % % \ifcat\par\@t
+    % % % \def\@memorylimit{\defaultmemorylimit}
+% % % \else
+    % % % \def\@memorylimit{#5}
+% % % \fi
+% % % \fi
+% % % % -- End of default memory limit --
+    {%
+	\pagebreak[2]%
+	\refstepcounter{problem}%
+%%		\global\def\@currentlabel{\thesubsection:\LatinAlph{problem}}%
+		\global\def\@currentlabel{\thesubsection:\arabic{problem}}%
+	% \addcontentsline{toc}{subsubsection}{\theproblem~<<#1>>}%
+%%	\addcontentsline{toc}{subsubsection}{\protect\numberline{\thesubsection:\LatinAlph{problem}}\nolinebreak[3] <<#1>>}%
+	\addcontentsline{toc}{subsubsection}{\protect\numberline{\thesubsection:\arabic{problem}}\nolinebreak[3] <<#1>>}%
+	\vspace{-1.25\baselineskip plus 1pt}%without star!!! only when at the same page!!! -- IlyaCk
+	\noindent\begin{minipage}{\columnwidth}
+        \noindent%
+        % \textbf{\problemheadfont\textsf{\kw@Problem\ \if@arabic\arabic{problem}.\else\LatinAlph{problem}.\fi{} <<#1>>}}\par
+%%        \textbf{\problemheadfont{\kw@Problem\ \thesubsection:\if@arabic\arabic{problem}.\else\LatinAlph{problem}.\fi{} <<#1>>}}\par
+        \textbf{\problemheadfont{\kw@Problem\ \thesubsection:\arabic{problem}.{} <<#1>>}}\par
+        % \textbf{\problemheadfont\textsf{\kw@Problem\ \theproblem. <<#1>>}}\par
+        \nopagebreak
+        \par\vspace{\afterproblemhead}
+%%%        \problemtextfont\parindent=6.5mm
+\ifPrintEjudgeConstraints	
+        \begin{small}
+	        \vbox{
+	           \begin{tabular}{@{}l@{\extracolsep{2mm}}ll@{\extracolsep{2mm}}l}
+	           \kw@InputFileName & {#2} &
+	           \kw@TimeLimit & #4 \\
+	           \kw@OutputFileName & {#3} &
+	           \kw@MemoryLimit & #5 \\
+	           \end{tabular}
+	        }
+		\end{small}
+        \nopagebreak
+        \par\vspace{\afterconstraints}
+\fi	
+	\end{minipage}
+    }\problemtextfont
+
+    \newcommand{\InputFileName}{#2}
+    \newcommand{\OutputFileName}{#3}
+	\nopagebreak
+}{
+    \problemend
+}
+
+\def\s@tm@cr@s{
+    \def\widthin##1{\exmpwidinf=##1\relax}
+    \def\widthout##1{\exmpwidouf=##1\relax}
+    \def\stretchin##1{\advance\exmpwidinf by ##1\relax}
+    \def\stretchout##1{\advance\exmpwidouf by ##1\relax}
+    \@ifstar{
+        \error Star must not be used in example environment any more
+    }
+}
+
+% :FIXME:
+\newenvironment{example}[1][]{
+    \s@tm@cr@s#1
+    \ttfamily\obeylines\obeyspaces\frenchspacing
+    \newcommand{\exmp}[2]{
+        \begin{minipage}[t]{\exmpwidinf}\rightskip=0pt plus 1fill\relax##1\medskip\end{minipage}&
+        \begin{minipage}[t]{\exmpwidouf}\rightskip=0pt plus 1fill\relax##2\medskip\end{minipage}\\
+%%%		\relax##1 & \relax##2 \\
+        \hline
+    }
+	\begin{small}
+    \begin{tabular}{|l|l|}
+        \hline
+        \multicolumn{1}{|c|}{\bf\texttt{\InputFileName}}&
+        \multicolumn{1}{|c|}{\bf\texttt{\OutputFileName}}\\
+        \hline
+}{
+    \end{tabular}
+	\end{small}
+}
+
+\newenvironment{examplewide}[1][]{%
+    \s@tm@cr@s#1
+    \ttfamily\obeylines\obeyspaces\frenchspacing
+    \newcommand{\exmp}[2]{
+        \begin{tabular}{|c|}
+        \hline
+        \multicolumn{1}{|c|}{\bf\texttt{\InputFileName}}\\
+        \hline
+        \begin{minipage}[t]{\exmpwidewid}\rightskip=0pt plus 1fill\relax
+        ##1
+        \medskip\end{minipage}\\
+        \hline
+        \multicolumn{1}{|c|}{\bf\texttt{\OutputFileName}}\\%
+        \hline
+        \begin{minipage}[t]{\exmpwidewid}\rightskip=0pt plus 1fill\relax
+        ##2    
+        \medskip\end{minipage}\\%
+        \hline
+        \end{tabular}
+    }
+}{
+}
+
+\newenvironment{examplewideSimple}[1][]{%
+	\noindent
+    \s@tm@cr@s#1
+    \ttfamily\obeylines\obeyspaces\frenchspacing
+    \newcommand{\exmp}[2]{
+        \begin{tabular}{|c|}
+        \hline
+        \multicolumn{1}{|c|}{\bf\texttt{Вхідні дані}}\\
+        \hline
+        \begin{minipage}[t]{0.95\textwidth}\rightskip=0pt plus 1fill\relax
+        ##1
+        \medskip\end{minipage}\\
+        \hline
+        \multicolumn{1}{|c|}{\bf\texttt{Результати}}\\%
+        \hline
+        \begin{minipage}[t]{0.95\textwidth}\rightskip=0pt plus 1fill\relax
+        ##2    
+        \medskip\end{minipage}\\%
+        \hline
+        \end{tabular}
+    }
+}{
+}
+
+\newif{\ifmakeTableLong}
+\makeTableLongfalse
+
+\newenvironment{exampleSimple}[2]
+{\begin{exampleWidthsAndFileNames}{#1}{#2}{Вхідні дані}{Результати}}
+{\end{exampleWidthsAndFileNames}}
+
+\newenvironment{exampleSimpleExtraNarrow}[2]
+{\begin{exampleWidthsAndFileNames}{#1}{#2}{Вхід}{Рез-ти}}
+{\end{exampleWidthsAndFileNames}}
+
+\newenvironment{exampleWidthsAndDefaultFileNames}[2]
+{\begin{exampleWidthsAndFileNames}{#1}{#2}{\InputFileName}{\OutputFileName}}
+{\end{exampleWidthsAndFileNames}}
+
+\newenvironment{exampleWidthsAndFileNames}[4]{
+    \ttfamily\obeylines\obeyspaces\frenchspacing
+    \newcommand{\exmp}[2]{%
+        \begin{minipage}[t]{#1}\parskip=-2pt\rightskip=0pt plus 1fill\relax##1\medskip\end{minipage}&
+        \begin{minipage}[t]{#2}\parskip=-2pt\rightskip=0pt plus 1fill\relax##2\medskip\end{minipage}\\
+        \hline
+    }
+	\begin{small}%
+    \begin{\ifmakeTableLong longtable\else tabular\fi}{|l|l|}
+        \hline
+        \multicolumn{1}{|c|}{\bf\texttt{#3}}&
+        \multicolumn{1}{|c|}{\bf\texttt{#4}}\\
+        \hline
+}{
+    \end{\ifmakeTableLong longtable\else tabular\fi}
+	\end{small}
+}
+
+\newenvironment{exampleSimpleLongTable}{
+	\makeTableLongtrue
+	\begin{exampleSimple}
+}{
+	\makeTableLongtrue
+    \end{exampleSimple}
+}
+
+\newenvironment{exampleSimpleThree}[4]{\begin{exampleSimpleThreeWithSpecNameColTwo}{#1}{#2}{#3}{Результати}{#4}}{\end{exampleSimpleThreeWithSpecNameColTwo}}
+
+\newenvironment{exampleSimpleThreeWithSpecNameColTwo}[5]{\begin{exampleThreeWithSpecNameColTwoAndLineStretch}{#1}{#2}{#3}{#4}{#5}{-2pt}{-2pt}{0.75}}{\end{exampleThreeWithSpecNameColTwoAndLineStretch}}
+
+\newenvironment{exampleThreeWithSpecNameColTwoAndLineStretch}[8]{
+    \ttfamily\obeylines\obeyspaces\frenchspacing
+    \newcommand{\exmp}[3]{%
+        \renewcommand{\baselinestretch}{#8}%
+        \begin{minipage}[t]{#1}\parskip=#6\rightskip=0pt plus 1fill\relax##1\medskip\end{minipage}&
+        \begin{minipage}[t]{#2}\parskip=#6\rightskip=0pt plus 1fill\relax##2\medskip\end{minipage}&
+        \begin{minipage}[t]{#3}\parskip=#7\rightskip=0pt plus 1fill\relax##3\medskip\end{minipage}\\
+        \hline
+    }
+	\nopagebreak
+	\begin{small}
+	\nopagebreak\noindent
+    \begin{\ifmakeTableLong longtable\else tabular\fi}{|l|l|l|}%
+        \hline%
+        \multicolumn{1}{|c|}{\bf\texttt{Вхідні дані}}&
+        \multicolumn{1}{|c|}{\bf\texttt{#4}}&
+        \multicolumn{1}{|c|}{\bf\texttt{#5}}\\*
+        \ifmakeTableLong\endhead\fi\hline
+}{
+    \end{\ifmakeTableLong longtable\else tabular\fi}
+	\end{small}
+}
+
+% -- End of problem environment --
+
+
+% -- Declare "shortitems" environment: it's a "compact itemize" --
+\def\shortitems{\vspace{-3mmplus2mm}\itemize\itemsep-1.618mmplus0.5mm\relax}%
+\def\endshortitems{\vspace{-3mmplus2mm}\enditemize}%
+\def\shortnums{\vspace{-3mmplus2mm}\enumerate\itemsep-1.618mmplus0.5mm\relax}%
+\def\endshortnums{\vspace{-3mmplus2mm}\endenumerate}%
+% -- end of shortitems declaration --
+
+\newcommand{\thecontestname}{Olympiad in Informatics}
+\newcommand{\thecontestlocation}{Somewhere}
+\newcommand{\thecontestdate}{Once upon a time}
+
+\DeclareRobustCommand{\contestname}{\thecontestname\par\thecontestlocation\ifUseComaInHeader\unskip,\else\fi{} \thecontestdate}
+
+\DeclareRobustCommand{\contest}[3]{
+    \renewcommand{\thecontestname}{#1}
+    \renewcommand{\thecontestlocation}{#2}
+    \renewcommand{\thecontestdate}{#3}
+	\renewcommand{\@oddhead}{% DO NOT REMOVE percent signs here - N.D.
+	    \parbox{\textwidth}{
+	        \sffamily
+	        \begin{center}
+	            \protect\contestname
+	            \\[2pt]
+%%%	            \hrule
+	        \end{center}%
+	        \vspace{2mm}
+        }%
+	}
+	\renewcommand{\@oddfoot}{%
+	    \parbox{\textwidth}{
+            \vspace*{-5mm}
+%%%	        \hrule
+	        \vspace{2pt}
+	        \sffamily
+	        {{\hfil}\kw@page\ \thepage\ \kw@of\ \pageref{LastPage}\hfil}%
+	    }%
+	}
+	\setcounter{problem}{0}
+}
+
+\makeatletter
+
+\renewcommand{\@oddhead}{% DO NOT REMOVE percent signs here - N.D.
+    \parbox{\textwidth}{
+        \sffamily
+        \begin{center}
+            \protect\contestname
+            \\[2pt]
+%%%            \hrule
+        \end{center}%
+        \vspace{2mm}
+    }%
+}
+
+\renewcommand{\@oddfoot}{%
+    \parbox{\textwidth}{
+        \vspace*{-5mm}
+%%%        \hrule
+        \vspace{2pt}
+        \sffamily
+        {{\hfil}\kw@page\ \thepage\ \kw@of\ \pageref{LastPage}\hfil}%
+    }%
+}
+
+\makeatother
+ 
+\headheight=20mm
+\headsep=3mm
+
+\hfuzz=0.5pt
+
+\sloppy

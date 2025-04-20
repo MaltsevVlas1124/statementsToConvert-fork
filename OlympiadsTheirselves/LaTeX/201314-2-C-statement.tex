@@ -1,0 +1,75 @@
+\begin{problemAllDefault}{Логічний куб}
+
+% % % \myflfigaw{\raisebox{-84pt}[0pt][72pt]{\begin{mfpic}[15]{0}{5}{0}{5}
+% % % \polygon{(0,0),(3,0),(3,3),(0,3)}
+% % % \lines{(3,0),(5,2),(5,5),(3,3)}
+% % % \lines{(0,3),(2,5),(5,5),(3,3)}
+% % % \dotted\lines{(2,2),(0,0)}
+% % % \dotted\lines{(2,2),(2,5)}
+% % % \dotted\lines{(2,2),(5,2)}
+% % % \tlabel[tc](0,0){$\phantom{9\over a}$\font\mysize = cmmi10 scaled 1440 \mysize e$\phantom{9\over a}$}
+% % % \tlabel[tc](2,2){$\phantom{9\over a}$\font\mysize = cmmi10 scaled 1440 \mysize f$\phantom{9\over a}$}
+% % % \tlabel[tc](5,2){$\phantom{9\over a}$\font\mysize = cmmi10 scaled 1440 \mysize g$\phantom{9\over a}$}
+% % % \tlabel[tc](3,0){$\phantom{99\over aa}$\font\mysize = cmmi10 scaled 1440 \mysize h$\phantom{9\over a}$}
+% % % \tlabel[bc](0,3){$\phantom{9\over a}$\font\mysize = cmmi10 scaled 1440 \mysize a$\phantom{9\over a}$}
+% % % \tlabel[bc](2,5){$\phantom{9\over a}$\font\mysize = cmmi10 scaled 1440 \mysize b$\phantom{9\over a}$}
+% % % \tlabel[bc](5,5){$\phantom{9\over a}$\font\mysize = cmmi10 scaled 1440 \mysize c$\phantom{9\over a}$}
+% % % \tlabel[bc](3,3){$\phantom{9\over a}$\font\mysize = cmmi10 scaled 1440 \mysize d$\phantom{9\over a}$}
+% % % \end{mfpic}}}
+% % % Логічний куб\nolinebreak[3] --- це куб, у\nolinebreak[3] вершинах якого знаходяться значення 0\nolinebreak[3] (\texttt{false}) або\nolinebreak[1] 1\nolinebreak[3] (\texttt{true}). Потрібно знайти шлях від однієї заданої вершини до\nolinebreak[2] іншої; якщо такого шляху не\nolinebreak[3] існує, то вивести відповідне повідомлення. В\nolinebreak[3] кубі можна проходити через усі р\'{е}бра, а\nolinebreak[3] також через вершини, значення яких рівне~1.
+
+{
+\def\logCubeFirstParagraph{Логічний куб\nolinebreak[3] --- це куб, у\nolinebreak[3] вершинах якого знаходяться значення 0\nolinebreak[3] (\texttt{false}) або\nolinebreak[1] 1\nolinebreak[3] (\texttt{true}). Потрібно знайти шлях від однієї заданої вершини до\nolinebreak[2] іншої; якщо такого шляху не\nolinebreak[3] існує, то вивести відповідне повідомлення. В\nolinebreak[3] кубі можна проходити через усі р\'{е}бра, а\nolinebreak[3] також через вершини, значення яких рівне~1.}
+\def\logCubeSecondParagraph{Напишіть програму, яка знаходить шлях між двома вершинами (якщо він існує), та виводить його у вигляді послідовності вершин куба. Гарантовано, що ці дві задані вершини мають значення 1.}
+\def\logCubeMfPic{\begin{mfpic}[15]{0}{5}{0}{5}
+\polygon{(0,0),(3,0),(3,3),(0,3)}
+\lines{(3,0),(5,2),(5,5),(3,3)}
+\lines{(0,3),(2,5),(5,5),(3,3)}
+\dotted\lines{(2,2),(0,0)}
+\dotted\lines{(2,2),(2,5)}
+\dotted\lines{(2,2),(5,2)}
+\tlabel[tc](0,0){$\phantom{9\over a}$\font\mysize = cmmi10 scaled 1440 \mysize e$\phantom{9\over a}$}
+\tlabel[tc](2,2){$\phantom{9\over a}$\font\mysize = cmmi10 scaled 1440 \mysize f$\phantom{9\over a}$}
+\tlabel[tc](5,2){$\phantom{9\over a}$\font\mysize = cmmi10 scaled 1440 \mysize g$\phantom{9\over a}$}
+\tlabel[tc](3,0){$\phantom{99\over aa}$\font\mysize = cmmi10 scaled 1440 \mysize h$\phantom{9\over a}$}
+\tlabel[bc](0,3){$\phantom{9\over a}$\font\mysize = cmmi10 scaled 1440 \mysize a$\phantom{9\over a}$}
+\tlabel[bc](2,5){$\phantom{9\over a}$\font\mysize = cmmi10 scaled 1440 \mysize b$\phantom{9\over a}$}
+\tlabel[bc](5,5){$\phantom{9\over a}$\font\mysize = cmmi10 scaled 1440 \mysize c$\phantom{9\over a}$}
+\tlabel[bc](3,3){$\phantom{9\over a}$\font\mysize = cmmi10 scaled 1440 \mysize d$\phantom{9\over a}$}
+\end{mfpic}}
+
+\ifAfour
+\logCubeFirstParagraph
+\par
+\logCubeSecondParagraph
+\myflfigaw{\hspace*{-1em}\logCubeMfPic}
+\else
+\mytextandpicture{\logCubeFirstParagraph}
+{\raisebox{-84pt}[0pt][72pt]{\logCubeMfPic}}
+\par
+\logCubeSecondParagraph
+\fi
+
+}
+
+\InputFile
+В\nolinebreak[3] першому рядку задаються через пробіл дві вершини куба, це\nolinebreak[1] можуть бути дві з\nolinebreak[3] наступних маленьких латинських літер: $a$,\nolinebreak[3] $b$, $c$, $d$, $e$, $f$, $g$,\nolinebreak[3] $h$. В\nolinebreak[3] наступному рядку, послідовно записуються значення кожної з вершин куба (0\nolinebreak[2] або\nolinebreak[3] 1). Значення у\nolinebreak[2] вершинах перелічені в\nolinebreak[2] алфавітному порядку.
+
+\OutputFile\phantomsection\label{text:log-cude-as-example-of-non-unique-correct-answer}
+Якщо шлях існує, то\nolinebreak[2] вивести (без\nolinebreak[2] пробілів) послідовність\linebreak[1] маленьких латинських літер мінімальної довжини, які\nolinebreak[2] визначають шуканий\nolinebreak[2] шлях. Якщо\nolinebreak[2] такого шляху не\nolinebreak[3] існує, то\nolinebreak[2] вивести рядок\nolinebreak[3] ``\texttt{NO}''.
+
+\Examples
+\ifAfour\hspace{-1em}\fi
+\begin{exampleSimple}{3em}{3em}%
+\exmp{e d
+10011011}{ead}%
+\end{exampleSimple}
+\ifAfour\hspace{-1em}\fi
+\begin{exampleSimple}{3em}{3em}%
+\exmp{e d
+00011110}{NO}%
+\end{exampleSimple}
+\ifAfour\hspace*{-1em}\fi
+
+\end{problemAllDefault}
+

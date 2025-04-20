@@ -1,0 +1,40 @@
+\begin{problem}{Квартири --- flats}{\defaultinput}{\defaultoutput}{1 сек}{64 Мб}
+
+\hyphenpenalty=500
+
+Багатоквартирний житловий будинок складається з кількох під’їздів. Кількість поверхів у всіх під’їздах однакова й дорівнює~$s$. На\nolinebreak[2] кожній сходовій клітці розміщено по\nolinebreak[2] $k$\nolinebreak[2] квартир. Як\nolinebreak[3] відомо, нумерація квартир розпочинається з першого під'їзду (від \mbox{1-го} по останній поверх), потім продовжується у\nolinebreak[3] \mbox{2-му}, і\nolinebreak[2] так\nolinebreak[2] далі.
+
+\Task 
+Напишіть програму \texttt{flats}, яка визначає в якому під’їзді і на якому поверсі розміщено квартиру номер~$N$.
+
+\InputFile
+Програма \texttt{flats} повинна прочитати зі стандартного входу (клавіатури) три цілі числа $s$ ($3\dib{{\<}}s\dib{{\<}}25$), $k$ ($2\dib{{\<}}k\dib{{\<}}6$) та $N$ ($1\dib{{\<}}N\dib{{\<}}999$), кожне в окремому рядку.
+
+\OutputFile
+Програма \texttt{flats} повинна вивести на стандартний вихід (екран) два числа, кожне в окремому рядку: у\nolinebreak[2] \mbox{1-му}\nolinebreak[2] рядку\nolinebreak[3] --- номер під’їзду, у\nolinebreak[2] \mbox{2-му}\nolinebreak[3] --- номер поверху.
+
+\Examples
+\par\noindent\hbox to \textwidth{\par\noindent\hspace*{-0.75em}
+\begin{exampleSimple}{3em}{3em}%
+\exmp{9
+5
+17}{1
+4}%
+\end{exampleSimple}\hss\hfill
+\begin{exampleSimple}{3em}{3em}%
+\exmp{3
+4
+24}{2
+3}%
+\end{exampleSimple}\hss\hfill
+\begin{exampleSimple}{3em}{3em}%
+\exmp{3
+4
+25}{3
+1}%
+\end{exampleSimple}\hss\hfill\\}
+
+\Note 
+Не менш ніж у половині тестів ${s\,{=}\,9}$, ${k\,{=}\,4}$.
+
+\end{problem}

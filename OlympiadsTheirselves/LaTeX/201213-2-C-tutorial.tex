@@ -1,0 +1,108 @@
+\Tutorial	\MyParagraph{Щодо <<лобового>> підходу.}
+Найочевидніший підхід (справді перебрати всі ч\'{и}сла від\nolinebreak[2] $A$ до~$B$, перетворити у двійкове подання і для кожної пари сусідніх справді порівняти й порахувати біти) і не~такий простий (як,\nolinebreak[2] власне, порівнювати біти?), і не~має шансів узяти повні бали, бо, навіть якби кожна пара чисел порівнювалася за один процесорний такт 
+% % % (що\nolinebreak[2] явно не~так), 
+(насправді явно більше), 
+все\nolinebreak[2] одно при ${A\,{\approx}\,1}$,\hspace{0.125em plus 0.25em} ${B\,{\approx}\,10^{10}}$ це\nolinebreak[2] було~б кілька секунд. 
+
+Оскільки використання того, що ч\'{и}сла в комп'ютері \emph{вже} у двійковій системі, буває корисним у багатьох інших ситуаціях, пропонуємо охочим подивитися в \IdeOne{d5w2Hx}\nolinebreak\hspace{0.125em}, як варто було~б технічно реалізовувати цей підхід.\linebreak[2] Змінна\nolinebreak[3] \texttt{k} послідовно набуває значень 
+$1_{2}$,
+$10_{2}$, 
+$100_{2}$,~\dots;\linebreak[2]
+``\verb"&"''\nolinebreak[3] 
+є\nolinebreak[2] 
+побітовим \texttt{and}-ом;\linebreak[2]
+отже, 
+\verb"i&k" являє собою або~0 (коли відповідний біт числ\'{а}\nolinebreak[3] \texttt{i} рівний~0), або~\texttt{k} (якщо рівний~1); отже, умова \verb"(i&k)"\nolinebreak[3]\hspace{0.25em plus 0.25em}\verb"!="\nolinebreak[2]\hspace{0.25em plus 0.25em}\verb"((i+1)&k)" виражає, що черговий біт чисел \verb"i" та \verb"i+1" все\nolinebreak[3] ще рі\underline{\emph{з}}ний (не~однаковий). Крім того, з ${(\texttt{i+1})}\dib{{-}}\texttt{i}\dibbb{{=}}1$ випливає, що різними бітами в цих числах можуть бути \emph{лише} кінець ${011\dots1}$\nolinebreak[2] в\nolinebreak[3] \verb"i" та відповідний йому кінець ${100\dots0}$\nolinebreak[2] в\nolinebreak[3] \verb"i+1" (кількість одиниць, що перетворюються у нулі, може бути різною, в~т.~ч.~0; потім рівно один нуль перетворюється в одиницю); 
+як\nolinebreak[2] тільки деякий біт однаковий\nolinebreak[3] --- всі лівіші теж, цикл можна обривати.
+%%% це,\nolinebreak[2] зокрема, означає, що як\nolinebreak[2] тільки деякий біт в \verb"i" та \verb"i+1" однаковий, то всі лівіші біти теж однакові, цикл можна обривати.
+
+І навіть така, досить вилизана у деталях, реалізація цього підходу набирає лише 50\% балів. 
+% % % (Станом на 2012~р., традиція вказувати, скільки балів на які обмеження припадає, вже існувала, але ще\nolinebreak[2] не\nolinebreak[3] на\nolinebreak[2] ІІ~етапі; 
+% % % відповідно, в умовах того етапу взнати конкретну частину <<50\%>> зарані було неможливо. 
+% % % Повноцінної перевірки під час туру тоді теж ще\nolinebreak[2] не\nolinebreak[3] було. 
+% % % Відповідно, взнати цей результат можна було лише через кілька годин після туру.)
+
+\MyParagraph{Повний розв'язок.}
+Розглянемо таблицю, в якій записані ч\'{и}сла від 1 до $18_{Dec}\dib{{=}}10010_2$ та кількості розрядів, які змінюються при переході \emph{до}\nolinebreak[2] цього числ\'{а} від попереднього.
+
+\noindent
+\begin{tabular}{ccc@{ }c@{ }c@{ }c@{ }c@{ }c@{ }c@{ }c@{ }c@{ }c@{ }c@{ }c@{ }c@{ }c@{ }c@{ }c@{}}
+1 &	 2 &	3  &	4   &	5   &	6   &	7   &	8    &	9    &	10   &	11   &	12   &	13   &	14   &	15  &	16   &	17   &	18   \vspace{-0.75ex}\\
+\small{1} 
+  &	\small{\underline{\underline{10}}}
+	&	\small{1\underline{\underline{1}}} 
+			&	\small{\underline{\underline{100}}} 
+					&	\small{10\underline{\underline{1}}} 
+							&	\small{1\underline{\underline{10}}} 
+									&	\small{11\underline{\underline{1}}} 
+											&	\small{\underline{\underline{1000}}} 
+													&	\small{100\underline{\underline{1}}} 
+															&	\small{10\underline{\underline{10}}} 
+																	&	\small{101\underline{\underline{1}}} 
+																			&	\small{1\underline{\underline{100}}} 
+																					&	\small{110\underline{\underline{1}}} 
+																							&	\small{11\underline{\underline{10}}} 
+																									&	\small{111\underline{\underline{1}}} 
+																											&	\small{\underline{\underline{10000}}}
+																													&	\small{1000\underline{\underline{1}}}
+																															&	\small{100\underline{\underline{10}}} \\
+1 &	2  &	1  &	3   &	1   &	2   &	1   &	4    &	1    &	2    &	1    &	3    &	1    &	2    &	1   &	5    &	1    &	2    \\
+
+\end{tabular}
+
+% % % \noindent
+% % % \begin{tabular}{@{}cccccccccccccccccc@{}}
+% % % 1 &	 2 &	3  &	4   &	5   &	6   &	7   &	8    &	9    &	10   &	11   &	12   &	13   &	14   &	15  &	16   &	17   &	18   \vspace{-0.75ex}\\
+% % % \scriptsize{1} 
+  % % % &	\scriptsize{\underline{\underline{10}}}
+	% % % &	\scriptsize{1\underline{\underline{1}}} 
+			% % % &	\scriptsize{\underline{\underline{100}}} 
+					% % % &	\scriptsize{10\underline{\underline{1}}} 
+							% % % &	\scriptsize{1\underline{\underline{10}}} 
+									% % % &	\scriptsize{11\underline{\underline{1}}} 
+											% % % &	\scriptsize{\underline{\underline{1000}}} 
+													% % % &	\scriptsize{100\underline{\underline{1}}} 
+															% % % &	\scriptsize{10\underline{\underline{10}}} 
+																	% % % &	\scriptsize{101\underline{\underline{1}}} 
+																			% % % &	\scriptsize{1\underline{\underline{100}}} 
+																					% % % &	\scriptsize{110\underline{\underline{1}}} 
+																							% % % &	\scriptsize{11\underline{\underline{10}}} 
+																									% % % &	\scriptsize{111\underline{\underline{1}}} 
+																											% % % &	\scriptsize{$\!$\underline{\underline{10000}}}
+																													% % % &	\scriptsize{$\!$1000\underline{\underline{1}}}
+																															% % % &	\scriptsize{$\!$100\underline{\underline{10}}} \\
+% % % 1 &	2  &	1  &	3   &	1   &	2   &	1   &	4    &	1    &	2    &	1    &	3    &	1    &	2    &	1   &	5    &	1    &	2    \\
+% % % \end{tabular}
+
+З~неї легко бачити, що для непарних чисел змінюється 1 розряд; парних, але\nolinebreak[2] не\nolinebreak[3] кратних~4, змінюються 2 розряди; кратних~4, але\nolinebreak[2] не\nolinebreak[3] кратних~8, змінюються 3 розряди; і~т.~д. (Це\nolinebreak[2] неважко й довести: коли число кратне~$2^{k}$, але\nolinebreak[2] не\nolinebreak[3] кратне~$2^{k+1}$, його двійковий запис закінчується на рівно $k$ нулів; при переході до цього числ\'{а} від попереднього, змінюються вони всі, та ще один біт.)
+
+А звідси вже можна порахувати, що на всьому проміжку від~1 до деякого~$N$ шукана сума всіх кількостей змін розряду може бути порахована як 
+
+\ifBigStretch
+\vspace{-1.5\baselineskip}
+\else
+\vspace{-0.75\baselineskip}
+\fi
+
+\begin{equation}
+% % % $K(N) = N\dibbb{{+}}{(N\mathbin{\mathrm{div}}2)}\dibbb{{+}}{(N\mathbin{\mathrm{div}}2^2)\,{+}\,\dots}\dibbb{{+}}{(N\mathbin{\mathrm{div}}2^k)\,{+}\,\dots}$,
+K(N) = N + (N\mathbin{\mathrm{div}}2) + (N\mathbin{\mathrm{div}}2^2) + \ldots + (N\mathbin{\mathrm{div}}2^k) + \ldots,
+\label{eq:201213-2-C-binary}
+\end{equation}
+
+\ifBigStretch
+\vspace{-0.75\baselineskip}
+\fi
+
+\noindent
+де $\mathbin{\mathrm{div}}$\nolinebreak[3] --- цілочисельне ділення; сума, хоч і завершується трикрапкою, фактично має лише приблизно $\log_2{N}$ доданків (далі нулі). Чому така формула відповідає тому, що було наведено у табличці та подальших міркуваннях? Бо\nolinebreak[2] $N$\nolinebreak[3] --- кількість взагалі всіх чисел у діапазоні, й для непарних вже пораховано правильно, а для всіх парних з потрібної кількості взято~1; далі, ${(N\mathbin{\mathrm{div}}2)}$\nolinebreak[3] --- кількість всіх парних чисел у діапазоні, й для парних не~кратних~4 вже пораховано правильно (один раніше й один зараз), а для всіх кратних~4 з потрібної кількості взято~2; і~т.~д.
+
+Ця формула працює лише <<\underline{\emph{від~1}} до деякого~$N$>>, а\nolinebreak[3] треба від $A$ до~$B$. 
+%%% Тому слід застосувати досить стандартний прийом: виразити суму від $A$ до~$B$ 
+Тому суму від $A$ до~$B$ варто виразити  
+як ${K(B)\,{-}\,K(A)}$ (у~більшості схожих ситуацій, як на\nolinebreak[2] стор.\nolinebreak[3] \mbox{\pageref{text:num-divisors-in-range-best-algo-begin}--\pageref{text:num-divisors-in-range-best-algo-end}}, ${K(B)}\dib{{-}}{K(A\,{-}\,1)}$, з\nolinebreak[3] міркувань <<$A$~у~проміжку, його виключати не~треба>>, а\nolinebreak[3] тут все-таки ${K(B)\,{-}\,K(A)}$, бо перехід від ${A\,{-}\,1}$ до~$A$ не~входить у потрібний проміжок).\phantomsection\label{text:201213-2-C-about-range-subtract}
+
+Реалізуйте описаний алгоритм самостійно. 
+$K(N)$~варто оформити функцією (підпрограмою), щоб могти викликати з різними значеннями аргумента, не~дублюючи сам код обчислень згідно~(\ref{eq:201213-2-C-binary}).
+Така реалізація повинна працювати практично миттєво, бо її складність всього лиш ${O(\log{B}\,{+}\,\log{A})}\dibbb{{=}}{O(\log{B})}$.
+Так\nolinebreak[3] що\nolinebreak[2] обмеження ${B\,{\<}\,10^{10}}$ в цьому ракурсі сприймається як легкий тролінг, бо і вимагає того~ж \mbox{64-}\nolinebreak[3]біто\-вого типу даних, і~схиляє до пошуку дещо повільніших алгоритмів (\mbox{як-то}\nolinebreak[3] $O(\sqrt{B})$). Що~ж,\nolinebreak[2] так теж буває\dots

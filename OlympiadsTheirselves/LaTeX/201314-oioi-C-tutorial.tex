@@ -1,0 +1,45 @@
+\Tutorial	Задача передбачає \emph{перебір}\nolinebreak[3] --- проби різних значень, з\nolinebreak[3] перевіркою, чи\nolinebreak[3] виконується рівність. Треба лише організувати це правильно.
+
+Один з класичних способів уникати подвійних урахувань розкладень, у\nolinebreak[3] яких значення $x$ та\nolinebreak[3] $y$ лише обміняні місцями\nolinebreak[3] --- враховувати лише ті, де $x{\<}y$.
+
+{
+
+\def\tabbb{\hspace*{1em}}
+
+\myflfigaw{\ifAfour\begin{minipage}{12em}\else\begin{minipage}{11em}\fi\begin{small}\renewcommand{\baselinestretch}{0.875}\begin{alltt}res:=0;\\
+for x:=1 to N do\\
+\tabbb{}for y:=1 to N do\\
+\tabbb\tabbb{}if x<=y then\\
+\tabbb\tabbb\tabbb{}if x*x+y*y=N then\\
+\tabbb\tabbb\tabbb\tabbb{}res:=res+1;\end{alltt}\end{small}\end{minipage}}
+
+
+Деякі учасники здавали реалізацію, наведену праворуч. Вона % неправильна: 
+і\nolinebreak[3] працює надто довго, і\nolinebreak[3] може знаходити зайві розкладення.
+На стор.~\pageref{text:first-example-how-to-see-algo-will-not-fit-in-time-limit} роз'яснено, чому такий ($O(N^2)$) алгоритм очевидно не\nolinebreak[3] вкладеться у\nolinebreak[3] 1~сек. А\nolinebreak[3] на\nolinebreak[3] стор.~\pageref{text:overflow-example}\nolinebreak[3] --- що таке переповнення, внаслідок яких \texttt{x*x+y*y=N} може виявитися \texttt{true} при, наприклад, $x{=}1$, $y{=}65537$, $N{=}131074$.
+
+\vspace{0.25\baselineskip plus 1pt}
+
+\ifAfour
+\myflfigaw{\ifAfour\begin{minipage}{11em}\else\begin{minipage}{10em}\fi\begin{small}\renewcommand{\baselinestretch}{0.875}\begin{alltt}res:=0;\\
+sqrtN:=round(sqrt(N));\\
+for x:=1 to sqrtN do\\
+\tabbb{}for y:=x to sqrtN do\\
+\tabbb\tabbb{}if x*x+y*y=N then\\
+\tabbb\tabbb\tabbb{}res:=res+1;\end{alltt}\end{small}\end{minipage}}
+Через помилку автора, задача вийшла простішою, ніж планувалося. Повний бал набирає в~т.~ч. й <<вилизана>> у деталях програма, де принципова оптимізація лише одна: верхні м\'{е}жі циклів змінені з\nolinebreak[3] $N$ на\nolinebreak[3] $\sqrt{N}$.
+\else
+\mytextandpicture{Через помилку автора, задача вийшла простішою, ніж планувалося. Повний бал набирає в~т.~ч. й <<вилизана>> у деталях програма, де принципова оптимізація лише одна: верхні м\'{е}жі циклів змінені з\nolinebreak[3] $N$ на\nolinebreak[3] $\sqrt{N}$.}{\ifAfour\begin{minipage}{11em}\else\begin{minipage}{10em}\fi\begin{small}\renewcommand{\baselinestretch}{0.875}\begin{alltt}res:=0;\\
+sqrtN:=round(sqrt(N));\\
+for x:=1 to sqrtN do\\
+\tabbb{}for y:=x to sqrtN do\\
+\tabbb\tabbb{}if x*x+y*y=N then\\
+\tabbb\tabbb\tabbb{}res:=res+1;\end{alltt}\end{small}\end{minipage}}
+\fi
+
+}
+
+Все ж розглянемо можливу подальшу оптимізацію, яка зменшує складність з ${O(\sqrt{N}{\*}\sqrt{N})}\dib{{=}}{O(N)}$ до $O(\sqrt{N})$. Коли $x$ вибраний, рівність $x^2\dib{{+}}y^2\dib{{=}}N$ не~може виконатися для різних натуральних~$y$. Тож вкладеного цикла по~$y$ можна позбутися, замінивши на\nolinebreak[3] перевірку, чи $\sqrt{N{-}x^2}$ ціле та~${\>}x$.
+
+\phantomsection\label{text:how-to-test-if-sqrt-N-integer}
+Перевірку, чи $\sqrt{K}$ цілий, можна робити як \verb"frac(sqrt(K))=0". Або як \verb"sqr(round(sqrt(K)))=K". Теоретично, у \mbox{1-му} виразі можливий підвох, якщо \texttt{sqrt} поверне значення з\nolinebreak[3] похибкою і \texttt{frac} верне не~0, де насправді~0, а\nolinebreak[3] у\nolinebreak[3] др\'{у}гому~--- якщо \texttt{round} матиме вужчий тип і виникне переповнення. Практично вони обидва працюють правильно.

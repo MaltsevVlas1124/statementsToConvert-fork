@@ -1,0 +1,112 @@
+\begin{problemNoEjudge}{Сніжинка Коха}
+
+Конкретно цю програму пропонується писати, не~здаючи у~систему автоматичної перевірки.
+
+\begin{figure*}[!h]
+{\noindent~\hfill
+%
+\begin{mfpic}[108]{0}{1}{0}{1}
+\pointdef{A}(cosd 0,sind 0)
+\pointdef{B}(cosd 60,sind 60)
+\pointdef{C}(cosd 120,sind 120)
+\pointdef{D}(cosd 180,sind 180)
+\pointdef{E}(cosd 240,sind 240)
+\pointdef{F}(cosd 300,sind 300)
+\turtle{(0,0),\A}
+\tcaption{$n=0$}
+\end{mfpic}
+\hfill
+\begin{mfpic}[36]{0}{3}{0}{3}
+\pointdef{A}(cosd 0,sind 0)
+\pointdef{B}(cosd 60,sind 60)
+\pointdef{C}(cosd 120,sind 120)
+\pointdef{D}(cosd 180,sind 180)
+\pointdef{E}(cosd 240,sind 240)
+\pointdef{F}(cosd 300,sind 300)
+\turtle{(0,0),\A,\B,\F,\A}
+\tcaption{$n=1$}
+\end{mfpic}
+\hfill
+\begin{mfpic}[12]{0}{9}{0}{9}
+\pointdef{A}(cosd 0,sind 0)
+\pointdef{B}(cosd 60,sind 60)
+\pointdef{C}(cosd 120,sind 120)
+\pointdef{D}(cosd 180,sind 180)
+\pointdef{E}(cosd 240,sind 240)
+\pointdef{F}(cosd 300,sind 300)
+\turtle{(0,0),\A,\B,\F,\A,%
+\B,\C,\A,\B,%
+\F,\A,\E,\F,%
+\A,\B,\F,\A}
+\tcaption{$n=2$}
+\end{mfpic}
+\hfill
+\begin{mfpic}[4]{0}{27}{0}{27}
+\pointdef{A}(cosd 0,sind 0)
+\pointdef{B}(cosd 60,sind 60)
+\pointdef{C}(cosd 120,sind 120)
+\pointdef{D}(cosd 180,sind 180)
+\pointdef{E}(cosd 240,sind 240)
+\pointdef{F}(cosd 300,sind 300)
+% \turtle{(0,0),\A,\B,\F,\A,%
+% \B,\C,\A,\B,%
+% \F,\A,\E,\F,%
+% \A,\B,\F,\A,%
+% %
+% \B,\C,\A,\B,%
+% \C,\D,\B,\C,%
+% \A,\B,\F,\A,%
+% \B,\C,\A,\B,%	
+% %
+% \F,\A,\E,\F,%
+% \A,\B,\F,\A,%
+% \E,\F,\D,\E,%
+% \F,\A,\E,\F,%
+% %
+% \A,\B,\F,\A,%
+% \B,\C,\A,\B,%
+% \F,\A,\E,\F,%
+% \A,\B,\F,\A}
+\turtle{(0,0),\A,\B,\F,\A,%
+\B,\C,\A,\B,%
+\F,\A,\E,\F,%
+\A,\B,\F,\A}
+
+\turtle{(9,0),\B,\C,\A,\B,%
+\C,\D,\B,\C,%
+\A,\B,\F,\A,%
+\B,\C,\A,\B}	
+
+\turtle{(13.5,9*sind 60),\F,\A,\E,\F,%
+\A,\B,\F,\A,%
+\E,\F,\D,\E,%
+\F,\A,\E,\F}
+
+\turtle{(18,0),\A,\B,\F,\A,%
+\B,\C,\A,\B,%
+\F,\A,\E,\F,%
+\A,\B,\F,\A}
+\tcaption{$n=3$}
+\end{mfpic}
+\hfill%
+~\linebreak}
+\vspace{-0.7\baselineskip}
+\caption{Сніжинки Коха порядків 0, 1, 2 та~3.}
+\label{fig:koch-ex-0123}
+\end{figure*}
+
+За формальне означення самоподібної ламаної <<сніжинка Коха>> можна взяти будь-яке з таких:
+
+А)~Сніжинка Коха нульов\'{о}го порядку є відрізком, а~будь-який \mbox{$n$-й} порядок (де\nolinebreak[3] $n$\nolinebreak[3] --- ціле строго додатне) можна отримати зі сніжинки Коха $(n\,{-}\,1)$-го порядку заміною кожного відрізка на ламану, за такими правилами: відрізок ділиться на три рівні частини, на~середній будують рівносторонній трикутник і замнюють основу трикутника на решту дві сторони.
+
+Б)~Сніжинка Коха нульов\'{о}го порядку є відрізком, а~будь-який \mbox{$n$-й} порядок (де\nolinebreak[3] $n$\nolinebreak[3] --- ціле строго додатне) складається з чотирьох сніжинок Коха \mbox{$(n\,{-}\,1)$-го} порядку втричі менших лінійних розмірів, причому др\'{у}га частина повернута відносно першої на~$60^\circ$\nolinebreak[2] ліворуч, третя відносно др\'{у}гої\nolinebreak[3] --- на~$120^\circ$\nolinebreak[2] праворуч, а~четверта орієнтована так, як перша (тобто повернута відносно третьої на~$60^\circ$\nolinebreak[3] \mbox{ліворуч}).
+
+Напишіть програму, що зображає \mbox{$n$-й} порядок сніжинки Коха.
+Рекомендується писати програму мовою Python з використанням <<черепашої графіки>>, тобто виконавця, який вміє виконувати команди 
+<<проїхати вперед на таку-то відстань>>, 
+<<повернути ліворуч на стільки-то градусів>>, 
+<<повернути праворуч на стільки-то градусів>>
+(і~ще~деякі, але вони з\'{а}раз не~важливі).
+
+\end{problemNoEjudge}
+

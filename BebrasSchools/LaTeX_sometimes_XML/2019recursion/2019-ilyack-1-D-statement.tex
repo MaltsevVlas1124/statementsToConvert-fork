@@ -1,0 +1,240 @@
+\begin{problemNoEjudge}{Драконова ламана}
+
+Конкретно цю програму пропонується писати, не~здаючи у~систему автоматичної перевірки.
+
+\newcounter{dragdir}
+\newcounter{currx}
+\newcounter{curry}
+\newcounter{prevx}
+\newcounter{prevy}
+\def\ddx{\ifcase\value{dragdir} 0 \or 1 \or 0 \or -1 \fi}
+\def\ddy{\ifcase\value{dragdir} 1 \or 0 \or -1 \or 0 \fi}
+
+
+\def\dragR{\ifnum \value{dragdir} < 3 \addtocounter{dragdir}{1} \else \addtocounter{dragdir}{-3} \fi}
+\def\dragL{\ifnum \value{dragdir} < 1 \addtocounter{dragdir}{3} \else \addtocounter{dragdir}{-1} \fi}
+
+
+\def\dragzero{%
+\setcounter{prevx}{\value{currx}}
+\setcounter{prevy}{\value{curry}}
+\pointdef{A}(\arabic{prevx},\arabic{prevy})
+\addtocounter{currx}{\ddx}
+\addtocounter{curry}{\ddy}
+\pointdef{B}(\arabic{currx},\arabic{curry})
+\lines{\A,\B}
+}
+
+\def\dragone{%
+\dragzero
+\dragR
+\dragzero
+}
+\def\dragoneR{%
+\dragzero
+\dragL
+\dragzero
+}
+
+\def\dragtwo{%
+\dragone
+\dragR
+\dragoneR
+}
+\def\dragtwoR{%
+\dragone
+\dragL
+\dragoneR
+}
+
+\def\dragthree{%
+\dragtwo
+\dragR
+\dragtwoR
+}
+\def\dragthreeR{%
+\dragtwo
+\dragL
+\dragtwoR
+}
+
+\def\dragfour{%
+\dragthree
+\dragR
+\dragthreeR
+}
+\def\dragfourR{%
+\dragthree
+\dragL
+\dragthreeR
+}
+
+\def\dragfive{%
+\dragfour
+\dragR
+\dragfourR
+}
+\def\dragfiveR{%
+\dragfour
+\dragL
+\dragfourR
+}
+
+\def\dragsix{%
+\dragfive
+\dragR
+\dragfiveR
+}
+\def\dragsixR{%
+\dragfive
+\dragL
+\dragfiveR
+}
+
+\def\dragseven{%
+\dragsix
+\dragR
+\dragsixR
+}
+\def\dragsevenR{%
+\dragsix
+\dragL
+\dragsixR
+}
+
+\def\drageight{%
+\dragseven
+\dragR
+\dragsevenR
+}
+\def\drageightR{%
+\dragseven
+\dragL
+\dragsevenR
+}
+
+\def\dragnine{%
+\drageight
+\dragR
+\drageightR
+}
+\def\dragnineR{%
+\drageight
+\dragL
+\drageightR
+}
+
+\def\dragten{%
+\dragnine
+\dragR
+\dragnineR
+}
+
+
+\begin{figure*}[!h]
+\begin{center}
+\raisebox{28pt}{\begin{mfpic}[20]{0}{12}{0}{12}
+
+\setcounter{currx}{0}
+\setcounter{curry}{0}
+\setcounter{dragdir}{1}
+\dragzero
+
+\setcounter{currx}{3}
+\setcounter{curry}{0}
+\setcounter{dragdir}{1}
+\dragone
+
+\setcounter{currx}{6}
+\setcounter{curry}{0}
+\setcounter{dragdir}{1}
+\dragtwo
+
+\setcounter{currx}{11}
+\setcounter{curry}{0}
+\setcounter{dragdir}{1}
+\dragthree
+
+\setcounter{currx}{18}
+\setcounter{curry}{0}
+\setcounter{dragdir}{1}
+\dragfour
+
+\end{mfpic}}
+\hfill
+\begin{mfpic}[2]{0}{12}{0}{12}
+
+\setcounter{currx}{0}
+\setcounter{curry}{0}
+\setcounter{dragdir}{1}
+\dragten
+
+\end{mfpic}
+
+\end{center}
+\caption{Драконові ламані порядків 0, 1, 2, 3, 4 та, у~дрібнішому масштабі,~10.}
+\label{fig:fractal-drag-ex-01234}
+\end{figure*}
+
+
+\begin{figure*}[!h]
+\begin{center}
+\begin{mfpic}[24]{0}{12}{0}{12}
+
+\def\hsqrtt{0.7071}
+
+% rotated by changing names
+\pointdef{LLL}(0,1)
+\pointdef{UUU}(1,0)
+\pointdef{RRR}(0,-1)
+\pointdef{DDD}(-1,0)
+
+\turtle{(0,0),\UUU,\RRR,\DDD,\RRR}
+\tlabel[bl](0,0){$A$}
+\tlabel[bl](0,-2){$B$}
+
+
+\tlabel[cc](2,-1){$\Rightarrow$}
+
+\turtle{(5,0),\UUU,\RRR,\DDD,\RRR}
+\dashed\turtle{(5,-2),(-\hsqrtt,+\hsqrtt),(+\hsqrtt,+\hsqrtt),(-\hsqrtt,+\hsqrtt),(-\hsqrtt,-\hsqrtt)}
+\dashed\arrow\arc[p]{(5,-2),90,180,0.7}
+\tlabel[bl](5,0){$A$}
+\tlabel[bl](5,-2){$B$}
+\tlabel[cr](3.6,-0.5){$A'$}
+
+
+\tlabel[cc](7.5,-1){$\Rightarrow$}
+
+\turtle{(11,0),\UUU,\RRR,\DDD,\RRR,\DDD,\LLL,\DDD,\RRR}
+\tlabel[bl](11,0){$A$}
+\tlabel[bl](11,-2){$B$}
+\tlabel[br](9,-2){$A'$}
+
+\end{mfpic}
+\end{center}
+\caption{Процес побудови драконової ламаної \mbox{$n$-го} порядку з ${(n{-}1)}$-го.}
+\label{fig:fractal-drag-transform}
+\end{figure*}
+
+Самоподібну <<драконову ламану>> можна означити так:
+
+Драконова ламана 
+% нульов\'{о}го 
+0-го
+порядку є відрізком. 
+Драконову ламану \mbox{$n$-го} (${n\,{\>}\,1}$) порядку можна отримати з драконової 
+ламаної ${(n\,{-}\,1)}$-го порядку так: <<розщепити>> лінію
+на~дві, й одну її частину залишити на~місці, а~іншу повернути 
+відносно хвоста ламаної ${(n\,{-}\,1)}$-го порядку на~$90^\circ$ проти 
+годинникової стрілки.
+
+Напишіть програму, що зображає \mbox{$n$-й} порядок драконової ламаної.
+Рекомендується писати програму мовою Python з використанням <<черепашої графіки>>, тобто виконавця, який вміє виконувати команди 
+<<проїхати вперед на таку-то відстань>>, 
+<<повернути ліворуч на стільки-то градусів>>, 
+<<повернути праворуч на стільки-то градусів>>
+(і~ще~деякі, але вони з\'{а}раз не~важливі).
+
+\end{problemNoEjudge}
+

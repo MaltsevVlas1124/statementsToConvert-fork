@@ -1,0 +1,144 @@
+\begin{problemAllDefault}{Сповзання кубиків}
+
+Є $N$ стовпчиків, утворених кубиками: \mbox{1-й} стовпчик являє собою $a_1$ поставлених один на іншого кубиків, \mbox{2-й}\nolinebreak[3] --- $a_2$\nolinebreak[3] кубиків, тощо. Усі ці кубики однакові. 
+
+Все це разом узяте акуратно нахиляють праворуч\nolinebreak[3] --- так, що деякі з кубиків зісковзують зі своїх стовпчиків і сповзають у правіші.\phantomsection\label{text:cubes-moving-right-1}
+
+\begin{figure*}[ht]
+
+\ifnum\getpagerefnumber{text:cubes-moving-right-1}=\getpagerefnumber{text:cubes-moving-right-2}
+\vspace{-1.25\baselineskip}
+\fi
+
+\begin{center}
+\def\sq#1#2{\rhatch[3mm]\rect{(#1+0.0625,#2+0.0625),(#1+0.9375,#2+0.9375)}
+\pen{1mm}
+\rect{(#1+0.0625,#2+0.0625),(#1+0.9375,#2+0.9375)}
+\pen{1pt}}
+\def\sQ#1#2{\lhatch[1.5pt]\rect{(#1+0.0625,#2+0.0625),(#1+0.9375,#2+0.9375)}
+\pen{1mm}
+\rect{(#1+0.0625,#2+0.0625),(#1+0.9375,#2+0.9375)}
+\pen{1pt}}
+\begin{mfpic}[24]{-0.25}{4.25}{-0.375}{3}
+\sq{0}{0}
+\sq{0}{1}
+\sq{0}{2}
+%
+\sq{1}{0}
+\sq{1}{1}
+%
+\sq{2}{0}
+%
+\sq{3}{0}
+\sq{3}{1}
+\pen{2mm}
+\lines{(-0.125,3.125),(-0.125,-0.125),(4.125,-0.125),(4.125,3.125)}
+\tlabel[tc](0.5,-0.25){3}
+\tlabel[tc](1.5,-0.25){2}
+\tlabel[tc](2.5,-0.25){1}
+\tlabel[tc](3.5,-0.25){2}
+\end{mfpic}
+\begin{Huge}$\Rightarrow$\end{Huge}
+\begin{mfpic}[24]{-0.25}{5}{-0.375}{3.5}
+\begin{coords}
+\rotatearound{(2,0)}{-6}
+\sq{0}{0}
+\sQ{0.25}{1}
+\sQ{0.25}{2}
+%
+\sq{1}{0}
+\sQ{1.25}{1}
+%
+\sq{2}{0}
+%
+\sq{3}{0}
+\sq{3}{1}
+\pen{2mm}
+\lines{(-0.125,3.125),(-0.125,-0.125),(4.125,-0.125),(4.125,3.125)}
+\end{coords}
+\tlabel[tc](0.5,-0.1){?}
+\tlabel[tc](1.5,-0.2){?}
+\tlabel[tc](2.5,-0.3){?}
+\tlabel[tc](3.5,-0.4){?}
+\end{mfpic}
+\begin{Huge}$\Rightarrow$\end{Huge}
+\begin{mfpic}[24]{-0.25}{5}{-0.375}{3.5}
+\begin{coords}
+\rotatearound{(2,0)}{-6}
+\sq{0}{0}
+%
+\sq{1}{0}
+\sQ{1}{1}
+%
+\sq{2}{0}
+\sQ{2}{1}
+%
+\sq{3}{0}
+\sq{3}{1}
+\sQ{3}{2}
+\pen{2mm}
+\lines{(-0.125,3.125),(-0.125,-0.125),(4.125,-0.125),(4.125,3.125)}
+\end{coords}
+\tlabel[tc](0.5,-0.1){1}
+\tlabel[tc](1.5,-0.2){2}
+\tlabel[tc](2.5,-0.3){2}
+\tlabel[tc](3.5,-0.4){3}
+%
+\tlabel[cl](4.35,0.3){4}
+\tlabel[cl](4.45,1.3){3}
+\tlabel[cl](4.55,2.3){1}
+
+\end{mfpic}\phantomsection\label{text:cubes-moving-right-2}
+\end{center}
+
+\vspace{-1.75\baselineskip}
+
+\end{figure*}
+
+Вважаємо (хоч це й не\nolinebreak[3] зовсім відповідає реальним законам фізики), що при сповзанні кубики ніколи\nolinebreak[2] не\nolinebreak[3] летять, перекидаючись, а\nolinebreak[3] лише зміщуються на правіші позиції.
+
+Напишіть програму, яка за початковою конфігурацією (а\nolinebreak[3] с\'{а}ме, кількостями кубиків у кожному стовпчику) знаходитиме кінцеву (а\nolinebreak[3] с\'{а}ме, кількості кубиків у кожному стовпчику та кількості кубиків у кожному рядку).
+
+\InputFile
+\mbox{1-й} рядок містить єдине число $N$ ($2\dib{{\<}}N\dib{{\<}}123456$)\nolinebreak[3] --- кількість стовпчиків. \mbox{2-й} рядок містить (розділені пробілами) $N$ натуральних чисел $a_1$,\nolinebreak[1] $a_2$,\nolinebreak[3] \dots,\nolinebreak[2] $a_N$\nolinebreak[3] --- кількості кубиків \mbox{1-му},\nolinebreak[1] \mbox{2-му},\nolinebreak[3] \dots, \mbox{$N$-му} стовпчиках (зліва направо). Кожна з цих кількостей перебуває у межах ${1\dib{{\<}}a_j\dib{{\<}}123456}$.
+
+\OutputFile
+Виведіть у першому рядку розділені пробілами кінцеві кількості кубиків по стовпчикам (зліва направо), а~у~другому рядку\nolinebreak[3] --- кінцеві кількості кубиків по рядкам (усім непорожнім, знизу догори). Ні\nolinebreak[3] кількість стовпчиків, ні\nolinebreak[3] кількість рядків виводити не\nolinebreak[3] треба.
+
+\Examples
+\hspace{-1em}
+\begin{exampleSimple}{5em}{5em}
+\exmp{4
+3 2 1 2}{1 2 2 3
+4 3 1}%
+\end{exampleSimple}
+\hspace{-1em}
+\begin{exampleSimple}{6.5em}{6.5em}
+\exmp{7
+4 1 1 1 2 1 1}{1 1 1 1 1 2 4
+7 2 1 1}%
+\end{exampleSimple}
+\hspace{-1em}
+
+\Note
+\mbox{1-й} приклад входу/виходу відповідає наведеним рисункам.
+
+\Scoring
+20\%\nolinebreak[3] балів припадає на тести, в\nolinebreak[3] яких кількість стовпчиків ${N\,{=}\,4}$, максимальне серед усіх $a_j$ дорівнює~3. 
+Ще\nolinebreak[3] 20\%\nolinebreak[3] балів\nolinebreak[3] --- тести, де\nolinebreak[1] $2\dib{{\<}}N\dib{{\<}}123$, $1\dib{{\<}}\max(a_j)\dib{{\<}}123$; 
+ще\nolinebreak[3] 20\%\nolinebreak[3] балів\nolinebreak[3] --- тести, де\nolinebreak[1] $2\dib{{\<}}N\dib{{\<}}123$, $1\dib{{\<}}\max(a_j)\dib{{\<}}123456$; 
+ще\nolinebreak[3] 20\%\nolinebreak[3] балів\nolinebreak[3] --- тести, де\nolinebreak[1] $2\dib{{\<}}N\dib{{\<}}123456$, $1\dib{{\<}}\max(a_j)\dib{{\<}}123$; 
+решта\nolinebreak[3] 20\%\nolinebreak[3] балів\nolinebreak[3] --- тести, де\nolinebreak[1] $2\dib{{\<}}N\dib{{\<}}123456$, $1\dib{{\<}}\max(a_j)\dib{{\<}}123456$.
+% % % Ще\nolinebreak[3] 20\%\nolinebreak[3] балів\nolinebreak[3] --- тести, де\nolinebreak[1] ${2\<N\<123}$, ${1\<\max(a_j)\<123}$; 
+% % % ще\nolinebreak[3] 20\%\nolinebreak[3] балів\nolinebreak[3] --- тести, де\nolinebreak[1] ${2\<N\<123}$, ${1\<\max(a_j)\<123456}$; 
+% % % ще\nolinebreak[3] 20\%\nolinebreak[3] балів\nolinebreak[3] --- тести, де\nolinebreak[1] ${2\<N\<123456}$, ${1\<\max(a_j)\<123}$; 
+% % % решта\nolinebreak[3] 20\%\nolinebreak[3] балів\nolinebreak[3] --- тести, де\nolinebreak[1] ${2\<N\<123456}$, ${1\<\max(a_j)\<123456}$.
+
+Писати треба одну програму, а не різні програми для різних випадків; єдина мета цього переліку різних блоків обмежень\nolinebreak[3] --- дати уявлення про те, скільки балів можна отримати, якщо розв’язати задачу правильно, але не\nolinebreak[3] ефективно.
+
+Якщо якийсь один з рядків-відповідей (або увесь перший рядок відповіді, тобто кількості кубиків по стовпчикам, або увесь другий рядок відповіді, тобто кількості кубиків по рядкам) повністю правильний, а\nolinebreak[3] інший\nolinebreak[3] ні, програма отримуватиме за відповідний тест 40\%~балів.
+
+
+
+
+\end{problemAllDefault}

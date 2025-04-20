@@ -1,0 +1,373 @@
+\begin{problemAllDefault}{Прямокутні суми}
+
+\myflfigaw{\fbox{\begin{minipage}{0.5\textwidth}
+Дано прямокутну таблицю розмірами $N$ рядків на $M$ стовпчиків, елементи якої є натуральними числами. Потрібно \underline{\begin{bfseries}\begin{itshape}багатократно\end{itshape}\end{bfseries}} знаходити суми всіх чисел, що потрапляють у деякі прямокутники цієї таблиці, утворені рядками з \mbox{$i_1$-го} по \mbox{$i_2$-й} та стовпчиками з \mbox{$j_1$-го} по \mbox{$j_2$-й}.\end{minipage}}}
+
+У цій задачі, алгоритмічна суть повністю повторює задачу~C <<Прямокутні суми>> з ІІ~(районного/\nolinebreak[3]міського) етапу Всеукраїнської олімпіади з інформатики (програмування) по Черкаській області, що відбувся 14.12.2019 (коротка суть наведена в цитаті праворуч, детальніше можна подивитися у~змаганні~70 сайту \EjudgeCkipoName). 
+%
+Але значна частина технічних деталей організовані абсолютно інакше. Й~мета цього комплекту з двох задач\nolinebreak[3] --- ознайомитися з цим іншим технічним форматом, котрий з 2018/19~н.~р. наявний на III~(обласному) та IV~(фінальному) етапах Всеукраїнської учнівської олімпіади з інформатики (програмування), але досі не~згадувався на змаганнях, що проводяться в межах \EjudgeCkipoName.
+
+\myflfigaw{\hspace*{-0.25em}\noindent\raisebox{0pt}[5\baselineskip][5\baselineskip]{\begin{tabular}{@{}c|c|c@{}}
+% Мова
+&
+Прямий лінк на файл
+&
+\begin{footnotesize}\hspace{-0.5em}\begin{minipage}{0.085\textwidth}
+\begin{center}
+Його \mbox{потім} здавати?
+\end{center}
+\end{minipage}\end{footnotesize}
+\\\hline
+\multirow{3}{*}{\rotatebox[origin=c]{90}{\texttt{g++}}\hspace*{-0.25em}}
+&
+\begin{footnotesize}%
+\href{https://ejudge.ckipo.edu.ua/201920-2a-C-header-g++.cpp}{ejudge.ckipo.edu.ua/201920-2a-C-header-g++.cpp}%
+\end{footnotesize}
+&
+Ні
+\\
+% \texttt{g++}
+&
+\begin{footnotesize}%
+\href{https://ejudge.ckipo.edu.ua/201920-2a-C-sample-g++.cpp}{ejudge.ckipo.edu.ua/201920-2a-C-sample-g++.cpp}%
+\end{footnotesize}
+&
+Так
+\\
+% \texttt{g++}
+&
+\begin{footnotesize}%
+\href{https://ejudge.ckipo.edu.ua/201920-2a-C-footer-g++.cpp}{ejudge.ckipo.edu.ua/201920-2a-C-footer-g++.cpp}%
+\end{footnotesize}
+&
+Ні
+\\\hline
+\multirow{3}{*}{\rotatebox[origin=c]{90}{\texttt{fpc}}\hspace*{-0.25em}}
+&
+\begin{footnotesize}%
+\href{https://ejudge.ckipo.edu.ua/201920-2a-C-header-fpc.pas}{ejudge.ckipo.edu.ua/201920-2a-C-header-fpc.pas}%
+\end{footnotesize}
+&
+Ні
+\\
+% \texttt{fpc}
+&
+\begin{footnotesize}%
+\href{https://ejudge.ckipo.edu.ua/201920-2a-C-sample-fpc.pas}{ejudge.ckipo.edu.ua/201920-2a-C-sample-fpc.pas}%
+\end{footnotesize}
+&
+Так
+\\
+% \texttt{fpc}
+&
+\begin{footnotesize}%
+\href{https://ejudge.ckipo.edu.ua/201920-2a-C-footer-fpc.pas}{ejudge.ckipo.edu.ua/201920-2a-C-footer-fpc.pas}%
+\end{footnotesize}
+&
+Ні
+\\\hline
+\multirow{3}{*}{\rotatebox[origin=c]{90}{\texttt{javac}}\hspace*{-0.25em}}
+&
+\begin{footnotesize}%
+\hspace*{-0.75em}\href{https://ejudge.ckipo.edu.ua/201920-2a-C-header-javac.java}{ejudge.ckipo.edu.ua/201920-2a-C-header-javac.java}\hspace*{-0.75em}%
+\end{footnotesize}
+&
+Ні
+\\
+% \texttt{java}
+&
+\begin{footnotesize}%
+\hspace*{-0.75em}\href{https://ejudge.ckipo.edu.ua/201920-2a-C-sample-javac.java}{ejudge.ckipo.edu.ua/201920-2a-C-sample-javac.java}\hspace*{-0.75em}%
+\end{footnotesize}
+&
+Так
+\\
+% \texttt{java}
+&
+\begin{footnotesize}%
+\hspace*{-0.5em}\href{https://ejudge.ckipo.edu.ua/201920-2a-C-footer-javac.java}{ejudge.ckipo.edu.ua/201920-2a-C-footer-javac.java}\hspace*{-0.5em}%
+\end{footnotesize}
+&
+Ні
+\end{tabular}}}
+
+Розв'язки цієї задачі можна здавати \emph{лише} мовами \mbox{\texttt{g++}}~(\mbox{C++}), \texttt{fpc} (Free Pascal, у режимі сумісності з\nolinebreak[3] Delphi), \texttt{javac}\nolinebreak[2] (\mbox{Java}).
+Додавати інші мови програмування поки~що не~планується; чи~буде це змінено в майбутньому, невідомо.
+%
+Скачайте за лінками, вказаними праворуч, файли згідно Вашої мови програмування.
+%
+\begin{bfseries}%
+\begin{itshape}%
+Здавати в ejudge на перевірку треба \underline{лише} виправлений \underline{фрагмент} програми, відповідний вмісту \underline{<<\texttt{sample}>>}.%
+\end{itshape}%
+\end{bfseries}
+Відповідно, редагувати слід у~першу чергу його, бо при перевірці на ejudge будуть використані header та footer, підготовлені журі, а~не~відредаговані Вами. (Причому, header буде в~точності такий, як наведено за посиланням, а~footer буде дещо відрізнятися, й Вам не~повідомляється, як~с\'{а}ме.)
+
+
+
+% % % Частина, яку Ви маєте написати, \underline{\emph{не}}~повинна й \underline{\emph{не}}~може містити функцію \texttt{main}~(C++)~/ головну програму (Паскаль)~/ метод \texttt{main} (Java). Ця~частина \underline{\emph{не}}~повинна й \underline{\emph{не}}~може містити читання вхідних даних (ні~з~клавіатури, ні~з~файлу, ні~ще~звідкись). 
+
+\MyParagraph{Протокол взаємодії (опис для~C++).}
+\par\noindent\emph{Перелік доступних Вам функцій, підготовлених журі.}
+
+\begin{itemize}
+\item
+\texttt{vector<vector<int>~> getArray(void)} --- повертає масив, над елементами якого потрібно виконувати операції знаходження сум прямокутників-запитів. Нумерація рядків та стовпчиків починається з~0.
+
+Якщо Ви виконаєте у~своєму коді дію \texttt{vector<vector<int>~> arr = getArray();}, то надалі зможете взнавати кількість рядків як \texttt{arr.size()}, кількість стовпчиків як \texttt{arr[0].size()}, значення елемента з~індексами \texttt{[i][j]} (при нумерації з~0) як \texttt{arr[i][j]}, тому всі три подальші функції цього переліку насправді непотрібні. Але, якщо зручно, можете ними користуватися (тоді не~обов'язково користуватися цією функцією).
+
+\item
+\texttt{int getHeight(void)} --- повертає кількість рядків у масиві.
+
+\item
+\texttt{int getWidth(void)} --- повертає кількість стовпчиків у масиві.
+
+\item
+\texttt{int getElement(int~i, int~j)} --- повертає значення елемента, розміщеного в \texttt{i}-му рядку, \texttt{j}-му стовпчику (вважаючи, що нумерація рядків та стовпчиків починається з~0). Якщо значення \texttt{i} або \texttt{j} виходять за м\'{е}жі діапазону 
+$0\dib{{\<}}\texttt{i}\dib{{<}}\texttt{getHeight()}$,
+$0\dib{{\<}}\texttt{j}\dib{{<}}\texttt{getWidth()}$,
+виклик \texttt{getElement(i,j)} повертає~0.
+\end{itemize}
+Усі ці функції є просто функціями (а~не~методами якогось класу).
+
+\medskip
+\noindent\emph{Перелік функцій, які Ви зобов'язані реалізувати.}
+\begin{itemize}
+\item
+\texttt{void init(void)} --- гарантовано буде викликатися один раз, на початку (раніше всіх запитів на підрахунок суми прямокутника). До~результатів діяльності цієї функції ніяких вимог нема, на Ваш розсуд.
+\item
+\texttt{long long calcRectSum(int iTop, int iAfterBottom, int jLeft, int jAfterRight)} --- повинна повернути суму всіх елементів, що потрапляють у~прямокутник з індексами рядків 
+$\texttt{iTop}\dib{{\<}}\texttt{i}\dib{{<}}\texttt{iAfterBottom}$,
+стовпчиків
+$\texttt{jLeft}\dib{{\<}}\texttt{j}\dib{{<}}\texttt{jAfterRight}$
+(нумерація з~0, початок діапазону включно, кінець не~включно).
+
+Це~\emph{не}~відповідає формату вхідних початкової задачі ІІ~(районного/\nolinebreak[2]міського) етапу (наприклад, прямокутник, який там описувався рядком вхідних даних ``1~2~3~4'', тут описується викликом \texttt{calcRectSum(0,~2,~2,~4)}); але, на думку автора задачі, для мови~C++ так якраз природніше.
+
+\end{itemize}
+Обидві ці функції повинні бути просто функціями (а~не~методами якогось класу).
+
+\MyParagraph{Протокол взаємодії (опис для~Pascal).} Фрагмент header \emph{містить} рядок ``\verb"{$mode delphi}"'', тому вся компіляція відбуватиметься в режимі (максимально можливої для Free Pascal) сумісності з Delphi; зокрема, це забезпечує, що тип \texttt{integer} 32-бітовий.
+
+\par\noindent\emph{Перелік доступних Вам типів та підпрограм, підготовлених журі.}
+
+\begin{itemize}
+\item
+\texttt{type Arr2D = array[1..5000,1..5000] of integer} --- Ви не~зобов'язані скрізь користуватися лише такими масивами, але наступна процедура використовує с\'{а}ме цей тип.
+
+\item
+\texttt{procedure getArray(var arr : Arr2D; var N, M : integer)} --- надає переданому масиву той вміст, для елементів якого слід шукати суми прямокутників-запитів, а ще двом змінним --- розміри: спочатку (\texttt{N}) кількість рядків, потім (\texttt{M}) кількість стовпчиків. Нумерація рядків та стовпчиків починається з~1.
+
+Оскільки і сам масив, і його розміри тут вже задані, всі три подальші функції цього переліку насправді непотрібні. Але, якщо зручно, можете ними користуватися (тоді не~обов'язково користуватися цією процедурою).
+
+\item
+\texttt{function getHeight : integer} --- повертає кількість рядків у масиві.
+
+\item
+\texttt{function getWidth : integer} --- повертає кількість стовпчиків у масиві.
+
+\item
+\texttt{function getElement(i,~j : integer) : integer} --- повертає значення елемента, розміщеного в \texttt{i}-му рядку, \texttt{j}-му стовпчику (вважаючи, що нумерація рядків та стовпчиків починається з~1). Якщо значення \texttt{i} або \texttt{j} виходять за м\'{е}жі діапазону 
+$1\dib{{\<}}\texttt{i}\dib{{\<}}\texttt{getHeight}$,
+$1\dib{{\<}}\texttt{j}\dib{{\<}}\texttt{getWidth}$,
+виклик \texttt{getElement(i,j)} повертає~0.
+\end{itemize}
+Усі ці процедури/\nolinebreak[2]функції є просто процедурами/\nolinebreak[2]функціями (а~не~методами якогось класу).
+
+\medskip
+\noindent\emph{Перелік підпрограм, які Ви зобов'язані реалізувати.}
+\begin{itemize}
+\item
+\texttt{procedure init} --- гарантовано буде викликатися один раз, на початку (раніше всіх запитів на підрахунок суми прямокутника). До~результатів діяльності цієї процедури ніяких вимог нема, на Ваш розсуд.
+\item
+\texttt{function calcRectSum(iTop, iBottom, jLeft, jRight : integer) : int64} --- повинна повернути суму всіх елементів, що потрапляють у~прямокутник з індексами рядків 
+$\texttt{iTop}\dib{{\<}}\texttt{i}\dib{{\<}}\texttt{iBottom}$,
+стовпчиків
+$\texttt{jLeft}\dib{{\<}}\texttt{j}\dib{{\<}}\texttt{jRight}$
+(нумерація з~1, усі м\'{е}жі включно; це~якраз відповідає формату вхідних початкової задачі ІІ~(районного/\nolinebreak[2]міського) етапу, і~вважається природнім для мови Pascal).
+
+\end{itemize}
+Ці процедура та функція повинні бути просто процедурою та функцією (а~не~методами якогось класу).
+
+
+\MyParagraph{Протокол взаємодії (опис для~Java).}
+\par\noindent\emph{Перелік доступних Вам методів, підготовлених журі.} 
+Всі ці м\'{е}тоди є статичними публічними класу \texttt{GetData}. 
+
+\begin{itemize}
+\item
+\texttt{static public int[][] getArray()} --- повертає двовимірний масив (масив масивів), над елементами якого потрібно виконувати операції знаходження сум прямокутників-запитів. Нумерація рядків та стовпчиків починається з~0.
+
+Якщо Ви виконаєте у~своєму коді дію \texttt{int[][] arr = GetData.getArray();}, то надалі зможете взнавати кількість рядків як \texttt{arr.length}, кількість стовпчиків як \texttt{arr[0].length}, значення елемента з~індексами \texttt{[i][j]} (при нумерації з~0) як \texttt{arr[i][j]}, тому всі три подальші методи цього переліку насправді непотрібні. Але, якщо зручно, можете ними користуватися (тоді не~обов'язково користуватися цим методом).
+
+\item
+\texttt{static public int getHeight()} --- повертає кількість рядків у масиві.
+
+\item
+\texttt{static public int getWidth()} --- повертає кількість стовпчиків у масиві.
+
+\item
+\texttt{static public int getElement(int~i, int~j)} --- повертає значення елемента, розміщеного в \texttt{i}-му рядку, \texttt{j}-му стовпчику (вважаючи, що нумерація рядків та стовпчиків починається з~0). Якщо значення \texttt{i} або \texttt{j} виходять за м\'{е}жі діапазону 
+$0\dib{{\<}}\texttt{i}\dib{{<}}\texttt{GetData.getHeight()}$,
+$0\dib{{\<}}\texttt{j}\dib{{<}}\texttt{GetData.getWidth()}$,
+виклик \texttt{GetData.getElement(i,j)} повертає~0.
+\end{itemize}
+Всі згадані тут м\'{е}тоди є статичними публічними класу \texttt{GetData}. 
+
+\medskip
+\noindent\emph{Перелік методів, які Ви зобов'язані реалізувати.}
+Всі ці м\'{е}тоди повинні бути статичними публічними класу \texttt{UserSolver}. Весь клас повинен \underline{\emph{не}}~бути публічним.
+\begin{itemize}
+\item
+\texttt{static public void init()} --- гарантовано буде викликатися один раз, на початку (раніше всіх запитів на підрахунок суми прямокутника). До~результатів діяльності цього м\'{е}тода ніяких вимог нема, на Ваш розсуд.
+\item
+\texttt{static public long calcRectSum(int iTop, int iAfterBottom, int jLeft, int jAfterRight)} --- повинна повернути суму всіх елементів, що потрапляють у~прямокутник з індексами рядків 
+$\texttt{iTop}\dib{{\<}}\texttt{i}\dib{{<}}\texttt{iAfterBottom}$,
+$\texttt{jLeft}\dib{{\<}}\texttt{j}\dib{{<}}\texttt{jAfterRight}$
+(нумерація з~0, початок діапазону включно, кінець не~включно).
+
+Це~\emph{не}~відповідає формату вхідних початкової задачі ІІ~(районного/\nolinebreak[2]міського) етапу (наприклад, прямокутник, який там описувався рядком вхідних даних ``1~2~3~4'', тут описується викликом \texttt{UserSolver.calcRectSum(0,~2,~2,~4)}); але, на думку автора задачі, для мови Java так якраз природніше.
+
+\end{itemize}
+Всі згадані тут м\'{е}тоди повинні бути статичними публічними класу \texttt{UserSolver}.
+Весь клас повинен \underline{\emph{не}}~бути публічним. Ви~можете, якщо бажаєте, додавати у клас \texttt{UserSolver} свої м\'{е}тоди та/або пол\'{я}, робити їх будь-якого рівня доступу (\texttt{public}/\nolinebreak[2]\texttt{protected}/\nolinebreak[2]\texttt{private}), але обов'язково \emph{лише статичними}. Примірники (instances) цього класу створюватися \underline{\emph{не}}~будуть.
+
+
+% \noindent\begin{tabular}{|l|p{0.5\textwidth}|}
+% \hline
+% \begin{ttfamily}
+% \noindent\begin{tabular}{@{}c|l@{}}
+% \hline
+% g++
+% &
+% void init_data(void)
+% \\\hline
+% fpc-delphi
+% &
+% procedure InitData
+% \\\hline
+% java
+% &
+% void initData(void)
+% \\\hline
+% \end{tabular}
+% \end{ttfamily}
+% &
+% Буде викликатися один раз на початку. 
+% Повинна містити виклики описаних далі або підпрограми 
+% \texttt{getAllArray}, 
+% \\\hline
+% \end{tabular}
+
+
+% % % \InputFile  
+% % % У~\mbox{1-му}~рядку через одинарний пробіл записано ч\'{и}сла $N$ та~$M$, далі $N$~рядків по $M$ чисел у кожному містять значення комірок таблиці. 
+% % % Далі в окремому рядку записано число~$T$\nolinebreak[3] --- кількість подальших запитів, потім ще\nolinebreak[3] $T$\nolinebreak[3] рядків\nolinebreak[3] --- сам\'{і} запити, кожен у вигляді ${i_1\,\,i_2\,\,j_1\,\,j_2}$ (через одинарні пробіли, ${1\,{\<}\,i_1\,{\<}\,i_2\,{\<}\,N}$,\hspace{0.125em plus 1em} ${1\,{\<}\,j_1\,{\<}j_2\,{\<}\,M}$).
+
+% % % \OutputFile 
+% % % Рівно $T$ рядків, кожен з яких містить єдине число\nolinebreak[3] --- суму, що є відповіддю чергового запиту.
+
+% % % \savebox{\mypictbox}{\begin{tabular}[t]{@{}p{9em}c@{}}<<1~4~1~5>> задає всю таблицю;\hspace*{0pt plus 1em}\linebreak[3] <<1~2~3~4>>\nolinebreak[3] --- правий-верхній з виділених прямокутників;\hspace*{0pt plus 1em}\linebreak[3] <<2~4~2~2>>\nolinebreak[3] --- лівий.
+% % % &
+% % % \begin{tabular}[t]{ccccc}
+% % % \\\cline{3-4}
+% % % 1 & 2 & \multicolumn{1}{|c}{3} & \multicolumn{1}{c|}{4} & 5 \\\cline{2-2}
+% % % 2 & \multicolumn{1}{|c|}{3} & \multicolumn{1}{|c}{4} & \multicolumn{1}{c|}{5} & 6 \\\cline{3-4}
+% % % 3 & \multicolumn{1}{|c|}{4} & 5 & 6 & 7 \\
+% % % 4 & \multicolumn{1}{|c|}{5} & 6 & 7 & 8 \\\cline{2-2}
+% % % \end{tabular}
+% % % \end{tabular}}
+
+% % % \Example
+
+% % % \begin{exampleSimpleThree}{5em}{5em}{19em}{Коментар}
+% % % \exmp{4 5
+% % % 1 2 3 4 5
+% % % 2 3 4 5 6
+% % % 3 4 5 6 7
+% % % 4 5 6 7 8
+% % % 3
+% % % 1 4 1 5
+% % % 1 2 3 4
+% % % 2 4 2 2}{90
+% % % 16
+% % % 12}{\usebox{\mypictbox}}%
+% % % \end{exampleSimpleThree}
+
+
+% \begin{small}
+
+%%% \myflfigaw{\hspace*{-0.25em}\raisebox{0pt}[5\baselineskip][4\baselineskip]{\begin{small}\begin{tabular}{@{}c|c|p{0.4635\textwidth}|p{0.109\textwidth}|c@{}}
+\myflfigaw{\hspace*{-0.25em}\raisebox{0pt}[4\baselineskip][4\baselineskip]{\begin{small}\begin{tabular}{@{}c|c|p{0.425\textwidth}|p{0.1\textwidth}|c@{}}
+блок\hspace*{-0.01\textwidth}
+&
+тести
+&
+\multicolumn{1}{c|}{обмеження}
+&
+% % % \begin{minipage}{0.08\textwidth}\renewcommand\baselinestretch{0.75}\begin{scriptsize}
+% % % перед\-умови\par
+% % % \end{scriptsize}\end{minipage}
+передумови
+&
+бали
+\\\hline\hline%\endhead
+1 & 
+1--5 & 
+${2\,{\<}\,N,M,T,a_{ij}\,{\<}\,9}$ & 
+нема & 
+10\% 
+\\\hline
+2 & 
+6--10 & 
+${1\,{\<}\,N,M,T\,{\<}\,100}$; ${1\,{\<}\,a_{ij}\,{\<}\,10^4}$ &
+блок~1 & 
+10\% \\\hline
+3 & 
+11--15 & 
+${1\,{\<}\,N\,{\<}\,25}$; ${100\,{\<}\,M\,{\<}\,2019}$; ${10^3\,{\<}\,T,a_{ij}\,{\<}\,10^5}$ &
+блок~1 & 
+10\% \\\hline
+4 & 
+16--20 & 
+${100\,{\<}\,N\,{\<}\,2019}$; ${1\,{\<}\,M\,{\<}\,25}$; ${10^3\,{\<}\,T,a_{ij}\,{\<}\,10^5}$ &
+блок~1 & 
+10\% \\\hline
+5 &
+21--23 & 
+${100\,{\<}\,N,M\,{\<}\,400}$; ${123\,{\<}\,T,a_{ij}\,{\<}\,12345}$ &
+блоки 1--2 & 
+10\% \\\hline
+6 &
+24--27 & 
+${400\,{\<}\,N,M\,{\<}\,700}$; ${12345\,{\<}\,T\,{\<}\,222555}$; ${1\,{\<}\,a_{ij}\,{\<}\,10^9}$ &
+блоки \mbox{1--2},~5 & 
+15\% \\\hline
+7 &
+28--31 & 
+${1000\,{\<}\,N,M\,{\<}\,2019}$; ${12345\,{\<}\,T\,{\<}\,10^5}$; ${1\,{\<}\,a_{ij}\,{\<}\,10^9}$ &
+блоки \mbox{1--6} & 
+15\% \\\hline
+8 &
+32--35 & 
+${4000\,{\<}\,N,M\,{\<}\,5000}$; ${10^5\,{\<}\,T\,{\<}\,10^6}$; ${1\,{\<}\,a_{ij}\,{\<}\,10^9}$ &
+блоки \mbox{1--7} & 
+20\%
+\end{tabular}\end{small}}}
+
+% 
+
+\Scoring
+Оцінювання поблокове (бали за блок нараховуються лише в разі успішного проходження всіх тестів блоку).
+Стовпчик <<передумови>> означає, що розв'язок запускатиметься і перевірятиметься на поточному блоці, лише якщо цей самий розв'язок успішно пройшов блоки, згадані в передумовах.
+Нерівності через кому (\mbox{як-то} <<${100\,{\<}\,N,M\,{\<}\,400}$>>) означають, що всі перелічені через кому змінні перебувають в указаному діапазоні. 
+Обмеження на ``$T$'' вказують можливу кількість викликів \texttt{calcRectSum} для однієї й тієї~ж таблиці.
+Обмеження на ``$a_{ij}$'' вказують можливі значення елементів таблиці.
+% % % %
+% % % Кожен з р\'{о}зв'язків, які Ви здасте, перевірятиметься, починаючи з першого блоку, на всіх, для яких виконані передумови; з~різних спроб вибиратиметься максимальний результат, але це буде результат \emph{однієї} найкращої Вашої програми.
+
+У~блоках 1 та 2 тести рівносильні відповідним тестам задачі~C <<Прямокутні суми>> ІІ~(районного/\nolinebreak[3]місь\-кого) етапу Всеукраїнської олімпіади з інформатики по Черкаській області, що відбувся 14.12.2019; зокрема, \mbox{1-й}\nolinebreak[3] тест \mbox{1-го}\nolinebreak[3] блоку відповідає тесту, який там наведений в умові.
+% В~подальших блоках, однаковість тестів не~гарантується, і, як~правило, не~дотримана.
+В~подальших блоках тести інші.
+
+\end{problemAllDefault}

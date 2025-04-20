@@ -1,0 +1,74 @@
+\Tutorial
+Очевидно, що сумарна вартість буде мінімальною, якщо використати найдорожчу фарбу (ціни~\texttt{c}) для пари граней мінімальної площі, середньої ціни~\texttt{b} для граней середньої площі, найдешевшу\nolinebreak[3] (\texttt{a}) \nolinebreak[3] --- для граней максимальної площі. При бажанні, це твердження можна \emph{довести}, але ми доведення пропустимо; приклади аналогічних доведень (звісно, для інших задач та розв'язків) можна бачити, зокрема, на~стор.~\pageref{text:proof-example-parket-1},~\pageref{text:proof-example-train-to-ship},~\pageref{text:proof-max-num-by-strike-out-one-digit}.
+
+Так\nolinebreak[3] що головна складність\nolinebreak[3] --- знайти, яка з площ максимальна, яка середня і яка мінімальна. Для максимума це, очевидно, 
+\texttt{\mbox{max(x*y,$\,$x*z,$\,$y*z)}};
+аналогічно, для мінімума 
+\texttt{\mbox{min(x*y,$\,$x*z,$\,$y*z)}}. 
+Середню ж можна виразити, наприклад, як \texttt{\mbox{max(x,y,z)*min(x,y,z)}} 
+(чому? бо, якщо довж\'{и}ни всі різні, то є рівно три дов\-жин\'{и}: мінімальна, середня й максимальна, і з них можна утворити три \mbox{пари}\linebreak[2] 
+(мінімальна,\nolinebreak[2] середня),\linebreak[2]
+(мінімальна,\nolinebreak[2] максимальна),\linebreak[2]
+(середня,\nolinebreak[2] максимальна),\linebreak[2]
+і мінімальну площу утоврює перша пара, максимальну\nolinebreak[3] --- остання, 
+так\nolinebreak[3] що для середньої площі лишається др\'{у}га пара).
+%
+Ще один спосіб знайти середню площу
+\texttt{\mbox{(x*y$\,$+$\,$x*z$\,$+$\,$y*z) -}}\nolinebreak[1]  
+\texttt{\mbox{max(x*y,$\,$x*z$\,$y*z) -}}\nolinebreak[1]  
+\texttt{\mbox{min(x*y,$\,$x*z$\,$y*z)}}.
+(Якщо додати всі три й відняти з суми мінімум та максимум, залишиться середня.)
+
+{
+\def\paralAnsFirst{\begin{ttfamily}{%
+\mbox{a*2*max(x*y,x*z,y*z)}\nolinebreak[1]\hspace{0.25em plus 0.5em}+\linebreak[1]\hspace{0.25em plus 0.5em}%
+\mbox{c*2*min(x*y,x*z,y*z)}\nolinebreak[2]\hspace{0.25em plus 0.5em}+\linebreak[1]\hspace{0.25em plus 0.5em}%
+\mbox{b*2*max(x,y,z)*min(x,y,z)}}\end{ttfamily}}
+\def\paralAnsSecond{\begin{ttfamily}{%
+\mbox{a*2*max(x*y,x*z,y*z)}\nolinebreak[1]\hspace{0.125em plus 0.5em}+\linebreak[1]\hspace{0.125em plus 0.5em}%
+\mbox{c*2*min(x*y,x*z,y*z)}\nolinebreak[1]\hspace{0.125em plus 0.5em}+\linebreak[1]\hspace{0.125em plus 0.5em}%
+\mbox{b*2*((x*y+x*z+y*z)}\nolinebreak[3]\hspace{0.0625em plus 0.125em}-\linebreak[1]\hspace{0.0625em plus 0.125em}%
+\mbox{max(x*y,x*z,y*z)}\nolinebreak[3]\hspace{0.0625em plus 0.125em}-\linebreak[1]\hspace{0.0625em plus 0.125em}%
+\mbox{min(x*y,x*z,y*z)})}\end{ttfamily}}
+
+Насамкінець, досі скрізь шукали площу однієї грані, а сумарна площа пари протилежних граней удвічі більша.
+\ifAfour
+Це\nolinebreak[3] для\nolinebreak[2] першого способу дає вираз ``\paralAnsFirst'',
+а\nolinebreak[3]  для\nolinebreak[2] др\'{у}гого ``\paralAnsSecond''.
+\else
+Це\nolinebreak[3] дає вираз \paralAnsFirst{}
+для першого способу та
+\paralAnsSecond{} для другого.
+\fi
+
+}
+
+Ще один спосіб розв'язання задачі\nolinebreak[3] --- ігноруючи міркування першого абзацу, не~шукати, яка з площ мінімальна, середня та максимальна, а просто перебрати всі ${3!\,=6}$ варіантів, які грані якою фарбою фарбувати, й вибрати мінімум:
+\hspace{0.125em plus 0.5em}\ifAfour``\fi\begin{ttfamily}%
+2\nolinebreak[4]\hspace{0.125em plus 0.5em}*\nolinebreak[4]\hspace{0.125em plus 0.5em}min(%
+a*x*y\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}b*x*z\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}c*y*z,\linebreak[1]\hspace{0.25em plus 0.5em}
+a*x*y\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}c*x*z\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}b*y*z,\linebreak[1]\hspace{0.25em plus 0.5em}
+b*x*y\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}a*x*z\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}c*y*z,\linebreak[1]\hspace{0.25em plus 0.5em}
+b*x*y\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}c*x*z\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}a*y*z,\linebreak[1]\hspace{0.25em plus 0.5em}
+c*x*y\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}a*x*z\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}b*y*z,\linebreak[1]\hspace{0.25em plus 0.5em}
+c*x*y\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}b*x*z\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}a*y*z)\end{ttfamily}\ifAfour''\fi.
+
+
+% % % Його суть\nolinebreak[3] --- ми не~знаємо, яка з площ мінімальна, середня та максимальна, але можемо перебрати всі ${3!\,=\,6}$ варіантів, які грані якою фарбою фарбувати, й вибрати з них мінімум. (Тобто, цей підхід ігнорує міркування першого абзацу цього розбору.)
+
+% % % Ще один спосіб розв'язання задачі такий: 
+% % % \begin{ttfamily}
+% % % 2*min(%
+% % % a*x*y\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}b*x*z\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}c*y*z,\linebreak[1]\hspace{0.25em plus 0.5em}
+% % % a*x*y\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}c*x*z\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}b*y*z,\linebreak[1]\hspace{0.25em plus 0.5em}
+% % % b*x*y\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}a*x*z\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}c*y*z,\linebreak[1]\hspace{0.25em plus 0.5em}
+% % % b*x*y\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}c*x*z\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}a*y*z,\linebreak[1]\hspace{0.25em plus 0.5em}
+% % % c*x*y\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}a*x*z\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}b*y*z,\linebreak[1]\hspace{0.25em plus 0.5em}
+% % % c*x*y\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}b*x*z\nolinebreak[3]\hspace{0.125em plus 0.125em}+\nolinebreak[3]\hspace{0.125em plus 0.125em}a*y*z)\end{ttfamily}.
+% % % Він, ігноруючи міркування першого абзацу цього розбору, не~шукає, яка з площ мінімальна, середня та максимальна, а просто перебирає всі ${3!\,=\,6}$ варіантів, які грані якою фарбою фарбувати, й вибирає з них мінімум.
+
+% % % % % % Його суть\nolinebreak[3] --- ми не~знаємо, яка з площ мінімальна, середня та максимальна, але можемо перебрати всі ${3!\,=\,6}$ варіантів, які грані якою фарбою фарбувати, й вибрати з них мінімум. (Тобто, цей підхід ігнорує міркування першого абзацу цього розбору.)
+
+
+% \noindent
+(Само собою, зараховуються не~лише ці вирази, а будь-які правильні.)

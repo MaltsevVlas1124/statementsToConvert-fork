@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<problem package="ru.ejudge.sample_contest" id="D" type="standard">
+  <statement language="uk_UA">
+    <description>
+      <p>
+	    Скільки чисел у проміжку від <i>A</i> до <i>B</i> (обидві межі включно)
+		не&nbsp;діляться націло ні&nbsp;на&nbsp;<i>C</i>,
+		ні&nbsp;на&nbsp;<i>D</i>, ні&nbsp;на&nbsp;<i>E</i>?
+	  </p>
+      <p> 
+		<b> 
+		  Формат вхідних даних
+		</b> 
+		У єдиному рядку через одинарні пробіли задані п'ять натуральних чисел 
+		<i>A</i>, <i>B</i>, <i>C</i>, <i>D</i>, <i>E</i>. 
+      </p>
+      <p>
+		Обмеження: 1&le;<i>A</i>&le;<i>B</i>&le;10<sup>18</sup>;
+		ч<i>и</i>сла <i>C</i>, <i>D</i>, <i>E</i> різні і перебувають у проміжку від 2 до 10<sup>6</sup>.
+      </p>
+      <p> 
+		<b> 
+		  Формат результату
+		</b> 
+		Виведіть єдине невід'ємне ціле число &mdash; кількість чисел 
+		у проміжку від <i>A</i> до <i>B</i> (обидві межі включно),
+		які не&nbsp;діляться націло ні&nbsp;на&nbsp;<i>C</i>,
+		ні&nbsp;на&nbsp;<i>D</i>, ні&nbsp;на&nbsp;<i>E</i>.
+      </p>  
+    </description>
+    <notes>
+	<note>
+	  Цими сімома числами з проміжку від 17 до 42, 
+	  що не діляться ні&nbsp;на&nbsp;2, ні&nbsp;на&nbsp;3, ні&nbsp;на&nbsp;5, 
+	  є: 17, 19, 23, 29, 31, 37, 41.
+	</note>
+    </notes>
+  </statement>
+  <examples>
+    <example>
+      <input>17 42 2 3 5</input>
+      <output>7</output>
+    </example>
+  </examples>
+</problem>

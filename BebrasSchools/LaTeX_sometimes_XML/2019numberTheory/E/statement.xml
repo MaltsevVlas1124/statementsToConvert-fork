@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<problem package="ru.ejudge.sample_contest" id="E" type="standard">
+  <statement language="uk_UA">
+    <description>
+      <p>
+	    Напишіть програму, що за заданим натуральним числом <i>N</i> 
+		обчислюватиме кількість натуральних чисел, які є дільниками <i>N</i>!
+		(факторіалу числа&nbsp;<i>N</i>). 
+	  </p>
+      <p> 
+		<b> 
+		  Формат вхідних даних
+		</b> 
+		Єдиний рядок містить одне ціле число <i>N</i> (1&le;<i>N</i>&le;45). 
+      </p>
+      <p> 
+		<b> 
+		  Формат результату
+		</b> 
+		Виведіть єдине невід'ємне ціле число &mdash; 
+		знайдену кількість дільників числа <i>N</i>!
+      </p>  
+    </description>
+	<notes>
+	  <note>
+		при <i>N</i>=4, <i>N</i>!&nbsp;=&nbsp;4&times;3&times;2&times;1&nbsp;=&nbsp;24. 
+		Це число має такі дільники: 1, 2, 3, 4, 6, 8, 12, 24. 
+		Таким чином шукана кількість дорівнює 8. 
+	  </note>
+	</notes>
+  </statement>
+  <examples>
+    <example>
+      <input>4</input>
+      <output>8</output>
+    </example>
+  </examples>
+</problem>

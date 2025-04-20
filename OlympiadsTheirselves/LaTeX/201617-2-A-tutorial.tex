@@ -1,0 +1,21 @@
+\Tutorial	
+%На думку автора задачі, найлегше 
+Найлегше, мабуть,
+відняти з площі всього міста (доріг та кварталів) площу кварталів. Розмір міста <<по\nolinebreak[3] горизонталі>> (зі\nolinebreak[3] сходу на\nolinebreak[3] захід) становить \mbox{\texttt{(n+1)*a~+~n*b}}, бо\nolinebreak[3] 
+%по\nolinebreak[3] горизонталі 
+кварталів~$n$, вулиць\nolinebreak[3] ${(n\,{+}\,1)}$ (між усіма сусідніми кварталами та \emph{по\nolinebreak[3] обидва боки}). Аналогічно, розмір <<по\nolinebreak[3] вертикалі>> становить \mbox{\texttt{(m+1)*a~+~m*b}}. Кварталів же \verb"m*n"\nolinebreak[3] штук, кожен площею~\verb"b*b". 
+Що дає формулу
+%Що остат\'{о}чно дає таку формулу:
+%
+``\mbox{\verb"((n+1)*a"$\,$\verb"+"$\,$\verb"n*b)"}\hspace{0.25em plus 1mm}\verb"*"\hspace{0.25em plus 1mm}\nolinebreak[3]\mbox{\verb"((m+1)*a"$\,$\verb"+"$\,$\verb"m*b)"}\hspace{0.75em plus 1em}\verb"-"\nolinebreak[2]\hspace{0.5em plus 1em}\verb"n*m*b*b"''.
+
+Є й інші відповіді, як-то
+\hspace{0.125em plus 1em}
+``\verb"n*m*a*b*2"\hspace{0.25em plus 1mm}\verb"+"\hspace{0.25em plus 1mm}\nolinebreak[3]\verb"(n+m)*a*b"\hspace{0.25em plus 1mm}\verb"+"\hspace{0.25em plus 1mm}\nolinebreak[3]\verb"(n+1)*(m+1)*a*a"''
+\hspace{0.125em plus 1em}
+чи
+\hspace{0.125em plus 1em}
+``\verb"(n*(a+b)+a)"\hspace{0.25em plus 1mm}\nolinebreak[3]\verb"*"\hspace{0.25em plus 1mm}\nolinebreak[3]\verb"(m*(a+b)+a)"\hspace{0.75em plus 1em}\verb"-"\hspace{0.5em plus 1em}\nolinebreak[2]\verb"n*m*b*b"''.
+\hspace{0.125em plus 1em}
+Зараховується будь-яка правильна. 
+% \begin{color}{red}Якщо раптом у Вас є \begin{Huge}об\cyrgup{}рунтовані\end{Huge} сумніви щодо цього --- пишіть (наприклад, через <<Задать вопрос>> у~ejudge)\end{color}

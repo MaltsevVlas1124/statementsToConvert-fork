@@ -1,0 +1,226 @@
+﻿\documentclass[10pt,a5paper]{extarticle}
+
+\usepackage{cmap}
+% \usepackage[T2A]{fontenc}
+% \usepackage[utf8]{inputenc}
+
+\usepackage{fontspec}
+\setmainfont{Arial}[SlantedFont=Calibri-Light,BoldSlantedFont=Calibri-Bold]
+\setsansfont{Verdana}
+% \setmainfont{Verdana}
+% \setsansfont{Arial}
+\setmonofont{Courier New}
+
+% \makeatletter
+% \let\@alph\ori@alph
+% \let\@Alph\ori@Alph
+% \addto\extrasukrainian{\let\@alph\ori@alph \let\@Alph\ori@Alph}
+% \makeatother
+
+\usepackage[metapost,truebbox,mplabels]{mfpic}
+\usepackage{listcorr}
+\usepackage{epigraph}
+\usepackage{floatflt}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{alltt}
+\usepackage{cmap}
+\usepackage{color}
+\usepackage{refcount}
+
+% % % \usepackage{wasysym}
+% % % \usepackage{hyperref}
+% % % \hypersetup{
+    % % % colorlinks,
+    % % % citecolor=black,
+    % % % filecolor=black,
+    % % % linkcolor=black,
+    % % % urlcolor=black
+% % % }
+
+% \twocolumn
+
+% \usepackage[landscape,russian]{olymppp}
+
+\usepackage[ukrainian]{olymppp}
+
+\usepackage{anysize}
+
+\newif{\ifisART}
+\isARTfalse
+
+\def\ARTskip#1{\ifisART\else#1\fi}
+
+\def\dib#1{\,#1\discretionary{}{\mbox{$#1$}}{}\,}
+\def\dibbb#1{\)\nolinebreak\hspace{0.0625em plus 0.25em}\(\dib{#1}\)\nolinebreak\hspace{0.0625em plus 0.25em}\(}
+
+\newenvironment{exampleSimple}[2]{
+    \ttfamily\obeylines\obeyspaces\frenchspacing
+    \newcommand{\exmp}[2]{
+        \begin{minipage}[t]{#1}\rightskip=0pt plus 1fill\relax##1\medskip\end{minipage}&
+        \begin{minipage}[t]{#2}\rightskip=0pt plus 1fill\relax##2\medskip\end{minipage}\\
+        \hline
+    }
+	\begin{small}
+    \begin{tabular}{|l|l|}
+        \hline
+        \multicolumn{1}{|c|}{\bf\texttt{Вхідні дані}}&
+        \multicolumn{1}{|c|}{\bf\texttt{Результати}}\\
+        \hline
+}{
+    \end{tabular}
+	\end{small}
+}
+
+
+\marginsize{17mm}{17mm}{0mm}{10mm}
+
+
+\opengraphsfile{pics}
+
+\begin{document}
+
+\def\<{\leqslant}
+\def\>{\geqslant}
+\def\dib#1{\,#1\discretionary{}{\mbox{$#1$}}{}\,}
+\def\op{\mathop{\rm op}\nolimits}
+\def\opt{\mathop{\rm opt}}
+\def\isdiv{\mathbin{\hbox to 0.25em{\hfill\hbox to 0 pt{\raisebox{0pt}{\hss$\cdot$\hss}}\hbox to 0 pt{\raisebox{-.6ex}{\hss$\cdot$\hss}}\hbox to 0 pt{\raisebox{.6ex}{\hss$\cdot$\hss}}\hspace{0.15em}\hfill}\,}}
+
+\newlength{\myparindent}
+
+
+\newlength{\mytemplen}
+\newlength{\mytemplensecond}
+\newlength{\mytemplenthird}
+\newsavebox{\mypictbox}
+\def\myrightfigure#1#2{%
+\savebox{\mypictbox}{\noindent{}#2}%
+\settowidth{\mytemplen}{\usebox{\mypictbox}}%
+\settoheight{\mytemplenthird}{\usebox{\mypictbox}}%
+\ifdim\mytemplen<0.8\textwidth%
+\noindent%
+\setlength{\mytemplensecond}{\textwidth}%
+\addtolength{\mytemplensecond}{-\mytemplen}%
+\addtolength{\mytemplen}{3pt}% ??? better to find alike standard len
+\hspace*{\mytemplensecond}\usebox{\mypictbox}%
+\par\vspace*{-0.5\baselineskip}\par%
+\vspace*{-\mytemplenthird}
+\vspace{-\parskip}
+\hangindent=-\mytemplen
+\hangafter=-#1
+\else
+\begin{center}
+\usebox{\mypictbox}%
+\par
+\end{center}
+% \vspace{-\baselineskip}
+\fi%
+}
+
+\def\mytextandpicture#1#2{%
+\setlength{\myparindent}{\parindent}%
+\savebox{\mypictbox}{\noindent{}#2}%
+\settowidth{\mytemplensecond}{\usebox{\mypictbox}}%
+\setlength{\mytemplen}{\textwidth}%
+\addtolength{\mytemplen}{-\mytemplensecond}%
+\addtolength{\mytemplen}{-3mm}%
+\noindent\mbox{}\hfill\parbox{\mytemplen}{\hspace*{\myparindent}#1}\hfill\hspace{2.5mm}\hfill\parbox{\mytemplensecond}{\usebox{\mypictbox}}\hfill\mbox{}\\
+}
+
+\def\myhrulefill{\vspace{12mm}\par\vspace*{-12mm}\par\hrulefill}
+
+\contest{Динамічне програмування (дні Іллі Порубльова)}{Школа <<Бобра>> з програмування, Львів}{03.10.2018}
+
+\tableofcontents
+
+\sloppy
+
+% % % \section{Теоретичний матеріал}
+
+% % % \input DP_Th
+
+% % % \section{Література}
+
+% % % \input lit
+
+\section{Задачі першого дня (ДП)}
+
+Цей комплект задач доступний для on-line перевірки 
+на сайті \verb"https://ejudge.ckipo.edu.ua/", змагання №~64.
+
+Значна частина задач цього комплекту\nolinebreak[3] --- класичні, 
+справжнє авторство яких встановити вже важко.
+Такими є, зокрема, задачі
+A\nolinebreak[3] (платфоми-базова),
+D\nolinebreak[3] (MaxSum-базова),
+I\nolinebreak[3] (банкомат-базова).
+Деякі з істотних модифікацій цих задач розроблені 
+укладачем цього комплекту І.~Порубльовим ---
+зокрема, задача~C (аналіз того, як зміна вартості стрибків 
+може змінити задачу~A). Ідея розширень серії підзадач 
+давно відома, але послідовність задач D, F,~G,
+де\nolinebreak[3] така потреба виникає просто і природньо, розроблялася укладачем
+(конкретно в~G використано також ідею Є.~Поліщука).
+
+
+%%% Авторами задачі~H (розподіл станцій по зонам) є В.~Челноков та Д.~Поліщук.
+
+
+
+\newenvironment{problemAllDefault}[1]{\vspace{10mm}\par\begin{problem}{#1}{Вхідні дані}{Результати}{1 сек}{256 мегабайтів}}{\end{problem}}
+
+\input A   % \input A-tut
+
+\input B   % \input B-tut
+
+\input C   % \input C-tut
+
+\input D   % \input D-tut
+           
+\input E   % \input E-tut
+           
+\input F   % \input F-tut
+
+\input G   % \input G-tut
+           
+\input H   % \input H-tut
+           
+\input I   % \input I-tut
+
+\input J   % \input J-tut
+
+% \section{Задачі другого дня (коли ДП недоречне)}
+% \setcounter{problem}{0}
+
+% Цей комплект задач доступний для on-line перевірки 
+% на сайті \verb"https://ejudge.ckipo.edu.ua/", змагання №~65.
+
+% Частина задач комплекту (A,~B,~C) спеціально розроблені так, щоб на перший погляд сильно нагадувати деякі задачі комплекту попереднього дня і тим провокувати застосування~ДП.
+% Решта задач теж мають \emph{частину} властивостей, потрібних динпрогу, але кінець кінцем ДП виявляється або взагалі незастосовним, або недоречним.
+% Авторами задачі~E (розподіл станцій по зонам) є В.~Челноков та Д.~Поліщук.
+
+
+
+% \input A2   \input A2-tut
+
+% \input B2   \input B2-tut
+
+% \input C2   \input C2-tut
+
+% \input D2   \input D2-tut
+
+% \input E2   \input E2-tut
+
+% \input F2   \input F2-tut
+
+
+% % % \clearpage
+% % % \tableofcontents
+
+\closegraphsfile
+\end{document}

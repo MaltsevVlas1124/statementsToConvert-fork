@@ -1,0 +1,58 @@
+﻿\begin{problemAllDefault}{Комп'ютерна гра (платформи) --- квадратичні стрибки}\label{problem:platforms-quadratic}
+
+\ifisART
+Загальне формулювання умови цілком відповідає розд.~\ref{sec:platforms-cycles}.
+\else
+У старих іграх можна зіткнутися з такою ситуацією. Герой стрибає по платформах, які висять у повітрі. 
+Він повинен перебратися від одного краю екрана до іншого. При стрибку з платформи на сусідню, 
+герой витрачає $(y_2-y_1)^2$ енергії, 
+де $y_1$ і $y_2$ --- 
+вис\'оти, на яких розташовані ці платформи. 
+Крім того, є суперприйом, що дозволяє перескочити через платформу, 
+але на це витрачається $3\cdot(y_3-y_1)^2$ енергії.
+(Суперприйом \emph{можна} застосовувати багатократно.)
+
+Відомі вис\'оти платформ у порядку від лівого краю до правого. Знайдіть мінімальну кількість енергії, 
+достатню, щоб дістатися з 1-ої платформи до $n$-ої (останньої).
+\fi
+
+
+\def\currStatementInputFormatSave{
+\InputFile
+Перший рядок містить кіль\-кість платформ\hspace{0pt plus 1em} $N$\hspace{0pt plus 1em} ($2\dib{{\<}}N\dib{{\<}}100000$), 
+др\'у\-гий\nolinebreak[3] --- $N$\nolinebreak[3] цілих чисел, 
+значення яких не~перевищують за\nolinebreak[3] модулем 4000\nolinebreak[3] --- 
+вис\'оти платформ.}
+\def\currStatementOutputFormatSave{
+\OutputFile
+У єдиному рядку виведіть єдине число\nolinebreak[3] --- мінімальну кількість енергії.       
+}
+  
+\ifisART
+%
+{
+\tolerance=9999
+\hyphenpenalty=-100
+\myflfigaw{\begin{exampleSimple}{14.5em}{5em}%
+\input C-ex
+\end{exampleSimple}}
+\currStatementInputFormatSave
+\par
+}
+
+\currStatementOutputFormatSave
+%
+\else
+%
+\currStatementInputFormatSave
+\par
+\currStatementOutputFormatSave
+\par
+\Examples
+\begin{example}%
+\input C-ex
+\end{example}
+%
+\fi
+
+\end{problemAllDefault}
