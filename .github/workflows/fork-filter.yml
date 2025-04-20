@@ -28,68 +28,69 @@ jobs:
     - name: Filter files
       run: |
         echo "Starting file filtering..."
-        mkdir -p filtered
-        cd source
+        FILTERED_DIR="$PWD/filtered" # Абсолютний шлях до папки filtered
+        SOURCE_DIR="$PWD/source"     # Абсолютний шлях до папки source
+        echo "Filtered directory: $FILTERED_DIR"
+        echo "Source directory: $SOURCE_DIR"
+
+        mkdir -p "$FILTERED_DIR"
+        cd "$SOURCE_DIR" # Переходимо в source один раз
 
         # --- Крок 1: Копіюємо всі файли, крім .tex ---
         echo "Copying non-.tex files..."
-        find . -type f ! -name "*.tex" | while IFS= read -r file; do
-          # Пропускаємо файли всередині .git
-          if [[ "$file" != *".git/"* ]]; then
-            echo "  Copying non-tex: $file"
-            mkdir -p "../filtered/$(dirname "$file")"
-            cp --parents "$file" ../filtered/
-          fi
+        find . -type f ! -name "*.tex" -not -path "./.git/*" | while IFS= read -r file; do
+          relative_path="${file#./}"
+          target_path="$FILTERED_DIR/$relative_path"
+          echo "  Copying non-tex: $relative_path to $target_path"
+          mkdir -p "$(dirname "$target_path")"
+          cp --verbose "$relative_path" "$target_path"
         done
 
         # --- Крок 2: Копіюємо .tex файли ПОЗА спеціальною папкою (з фільтром парних індексів) ---
         echo "Processing .tex files outside $SPECIAL_TEX_DIR with even-index logic..."
-        # Знаходимо, сортуємо та нумеруємо потрібні .tex файли
         mapfile -t tex_files_outside < <(find . -type f -name "*.tex" -not -path "./$SPECIAL_TEX_DIR/*" -not -path "./.git/*" | sort)
         i=0
         for file in "${tex_files_outside[@]}"; do
-          relative_path="${file#./}" # Отримуємо відносний шлях без './' на початку
+          relative_path="${file#./}"
           if [ $((i % 2)) -eq 0 ]; then
-            echo "  Copying even index $i (outside special dir): $relative_path"
-            # Використовуємо cp --parents для збереження структури
-            mkdir -p "../filtered/$(dirname "$relative_path")"
-            cp "$relative_path" "../filtered/$relative_path"
+            target_path="$FILTERED_DIR/$relative_path"
+            echo "  Copying even index $i (outside): $relative_path to $target_path"
+            mkdir -p "$(dirname "$target_path")"
+            cp --verbose "$relative_path" "$target_path"
           fi
           i=$((i + 1))
         done
 
         # --- Крок 3: Обробка спеціальної папки $SPECIAL_TEX_DIR (логіка A/C пар + головний файл) ---
-        if [ -d "$SPECIAL_TEX_DIR" ]; then
-          echo "Processing special directory: $SPECIAL_TEX_DIR"
-          cd "$SPECIAL_TEX_DIR" # Переходимо у вихідну спеціальну папку
+        special_src_dir="$SOURCE_DIR/$SPECIAL_TEX_DIR"
+        special_target_dir="$FILTERED_DIR/$SPECIAL_TEX_DIR"
+        echo "Processing special directory: $special_src_dir"
+        echo "Target directory for special files: $special_target_dir"
 
-          # Визначаємо цільову директорію ВІДНОСНО ПОТОЧНОГО МІСЦЯ (source/OlympiadsTheirselves/LaTeX)
-          target_dir_absolute="$PWD/../../filtered/$SPECIAL_TEX_DIR" # Використаємо абсолютний шлях для mkdir
-          target_dir_for_cp="../../filtered/$SPECIAL_TEX_DIR"       # Відносний для cp
-          echo "  Target absolute directory for mkdir: $target_dir_absolute"
-          echo "  Target relative directory for cp: $target_dir_for_cp"
+        if [ -d "$special_src_dir" ]; then
+          mkdir -p "$special_target_dir" # Створюємо цільову папку заздалегідь
 
-          # Знаходимо унікальні базові префікси
-          mapfile -t base_prefixes < <(find . -maxdepth 1 -name '*-*-statement.tex' -printf '%f\n' | sed -E 's/^(.*)-[A-Za-z0-9]+-statement\.tex$/\1/' | sort -u)
+          # Знаходимо унікальні базові префікси всередині спеціальної папки
+          mapfile -t base_prefixes < <(find "$special_src_dir" -maxdepth 1 -name '*-*-statement.tex' -printf '%f\n' | sed -E 's/^(.*)-[A-Za-z0-9]+-statement\.tex$/\1/' | sort -u)
           echo "  Found potential base prefixes: ${base_prefixes[*]}"
 
           for base_prefix in "${base_prefixes[@]}"; do
             echo "  Processing prefix: [$base_prefix]"
 
             # 3а. Копіюємо головний файл (якщо існує)
-            main_file="${base_prefix}.tex"
-            echo "    Checking for main file: [$main_file]"
-            if [ -f "$main_file" ]; then
-              echo "      Found main file. Attempting copy to $target_dir_for_cp/ ..."
-              mkdir -p "$target_dir_absolute" # Створюємо папку за абсолютним шляхом
-              cp "$main_file" "$target_dir_for_cp/"
+            main_file_src="$special_src_dir/${base_prefix}.tex"
+            echo "    Checking for main file: [$main_file_src]"
+            if [ -f "$main_file_src" ]; then
+              echo "      Found main file. Attempting verbose copy to $special_target_dir/ ..."
+              cp --verbose "$main_file_src" "$special_target_dir/"
               echo "      Main file copy attempted."
             else
-              echo "      Main file [$main_file] not found."
+              echo "      Main file [$main_file_src] not found."
             fi
 
             # 3б. Знаходимо та сортуємо ідентифікатори (A, B, C...)
-            mapfile -t identifiers < <(find . -maxdepth 1 -name "${base_prefix}-*-statement.tex" -printf '%f\n' | sed -E "s/^${base_prefix}-(.+)-statement\.tex$/\1/" | sort)
+            # Шукаємо файли безпосередньо у special_src_dir
+            mapfile -t identifiers < <(find "$special_src_dir" -maxdepth 1 -name "${base_prefix}-*-statement.tex" -printf '%f\n' | sed -E "s/^${base_prefix}-(.+)-statement\.tex$/\1/" | sort)
             echo "    Found identifiers for $base_prefix: [${identifiers[*]}] (Count: ${#identifiers[@]})"
 
             if [ ${#identifiers[@]} -eq 0 ]; then
@@ -104,54 +105,50 @@ jobs:
               if [ "$index" -lt "${#identifiers[@]}" ]; then
                 identifier="${identifiers[$index]}"
                 echo "      Identifier at index $index: [$identifier]"
-                statement_file="${base_prefix}-${identifier}-statement.tex"
-                tutorial_file="${base_prefix}-${identifier}-tutorial.tex"
+                statement_file_src="$special_src_dir/${base_prefix}-${identifier}-statement.tex"
+                tutorial_file_src="$special_src_dir/${base_prefix}-${identifier}-tutorial.tex"
 
                 # Копіюємо statement файл, якщо існує
-                echo "      Checking for statement file: [$statement_file]"
-                if [ -f "$statement_file" ]; then
-                   echo "        Found statement file. Attempting copy to $target_dir_for_cp/ ..."
-                   mkdir -p "$target_dir_absolute"
-                   cp "$statement_file" "$target_dir_for_cp/"
+                echo "      Checking for statement file: [$statement_file_src]"
+                if [ -f "$statement_file_src" ]; then
+                   echo "        Found statement file. Attempting verbose copy to $special_target_dir/ ..."
+                   cp --verbose "$statement_file_src" "$special_target_dir/"
                    echo "        Statement file copy attempted."
                 else
-                   echo "        Statement file [$statement_file] not found."
+                   echo "        Statement file [$statement_file_src] not found."
                 fi
 
                 # Копіюємо tutorial файл, якщо існує
-                 echo "      Checking for tutorial file: [$tutorial_file]"
-                 if [ -f "$tutorial_file" ]; then
-                   echo "        Found tutorial file. Attempting copy to $target_dir_for_cp/ ..."
-                   mkdir -p "$target_dir_absolute"
-                   cp "$tutorial_file" "$target_dir_for_cp/"
+                 echo "      Checking for tutorial file: [$tutorial_file_src]"
+                 if [ -f "$tutorial_file_src" ]; then
+                   echo "        Found tutorial file. Attempting verbose copy to $special_target_dir/ ..."
+                   cp --verbose "$tutorial_file_src" "$special_target_dir/"
                    echo "        Tutorial file copy attempted."
                  else
-                   echo "        Tutorial file [$tutorial_file] not found."
+                   echo "        Tutorial file [$tutorial_file_src] not found."
                  fi
               else
                  echo "      Index $index is out of bounds for prefix $base_prefix (found ${#identifiers[@]} identifiers)."
               fi
             done # кінець циклу по індексах
           done # кінець циклу по префіксах
-
-          # Повертаємося в корінь папки source
-          cd ../../
-          echo "  Finished processing special directory. Current directory: $PWD"
         else
-          echo "Warning: Special directory [$SPECIAL_TEX_DIR] not found in source repo."
+          echo "Warning: Special source directory [$special_src_dir] not found."
         fi
 
-        # Повертаємося в корінь робочої області workflow
-        cd ..
-        echo "File filtering finished. Current directory: $PWD"
+        # Немає потреби повертатися, бо ми не робили cd в спеціальну папку
+        echo "File filtering finished. Current directory: $PWD" # Має бути $SOURCE_DIR
 
     - name: Move filtered files into destination repo
       run: |
         echo "Moving filtered files to destination..."
-        ls -l filtered/ # Додамо вивід вмісту filtered для діагностики
-        ls -l filtered/OlympiadsTheirselves/LaTeX/ # І спеціальної папки
+        echo "--- Listing content of filtered directory ($PWD/filtered) ---"
+        ls -lR "$PWD/filtered" # Використовуємо абсолютний шлях і рекурсивний лістинг
+        echo "--- End of filtered directory listing ---"
+
         # Використовуємо rsync, АЛЕ виключаємо папку .git з процесу синхронізації/видалення
-        rsync -av --delete --exclude='.git/' filtered/ dest/ || echo "rsync finished with non-critical errors or no changes."
+        # Джерело тепер $PWD/filtered/
+        rsync -av --delete --exclude='.git/' "$PWD/filtered/" dest/ || echo "rsync finished with non-critical errors or no changes."
 
     - name: Commit and push changes to a new branch
       run: |
