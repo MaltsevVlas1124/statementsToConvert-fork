@@ -56,11 +56,15 @@ jobs:
         # --- Крок 3: Обробка спеціальної папки $SPECIAL_TEX_DIR ---
         if [ -d "$SPECIAL_TEX_DIR" ]; then
           echo "Processing special directory: $SPECIAL_TEX_DIR"
-          mkdir -p "../filtered/$SPECIAL_TEX_DIR" # Переконуємось, що цільова папка існує
-          cd "$SPECIAL_TEX_DIR"
+          # НЕ створюємо папку тут, створимо її нижче, перед кожним cp
+          # mkdir -p "../filtered/$SPECIAL_TEX_DIR" # <--- Видалено або закоментовано
 
-          # Знаходимо унікальні базові префікси (напр., 201213-2, 201314-3a)
-          # Використовуємо statement файли як основу для пошуку префіксів
+          cd "$SPECIAL_TEX_DIR" # Переходимо у вихідну спеціальну папку
+
+          # Визначаємо цільову директорію ВІДНОСНО ПОТОЧНОГО МІСЦЯ (source/OlympiadsTheirselves/LaTeX)
+          target_dir_relative="../../filtered/$SPECIAL_TEX_DIR"
+
+          # Знаходимо унікальні базові префікси
           find . -maxdepth 1 -name '*-*-statement.tex' -printf '%f\n' | \
             sed -E 's/^(.*)-[A-Za-z0-9]+-statement\.tex$/\1/' | \
             sort -u | while IFS= read -r base_prefix; do
@@ -70,13 +74,13 @@ jobs:
             main_file="${base_prefix}.tex"
             if [ -f "$main_file" ]; then
               echo "    Copying main file: $main_file"
-              cp "$main_file" "../../filtered/$SPECIAL_TEX_DIR/"
+              mkdir -p "$target_dir_relative" # <--- Створюємо цільову папку ПЕРЕД копіюванням
+              cp "$main_file" "$target_dir_relative/"
             fi
 
-            # 3б. Знаходимо та сортуємо ідентифікатори (A, B, C...) для цього префікса
+            # 3б. Знаходимо та сортуємо ідентифікатори
             mapfile -t identifiers < <(find . -maxdepth 1 -name "${base_prefix}-*-statement.tex" -printf '%f\n' | sed -E "s/^${base_prefix}-(.*)-statement\.tex$/\1/" | sort)
-            
-            # Перевіряємо, чи знайшлися ідентифікатори
+
             if [ ${#identifiers[@]} -eq 0 ]; then
               echo "    No statement/tutorial pairs found for $base_prefix"
               continue # Переходимо до наступного префіксу
@@ -95,7 +99,8 @@ jobs:
                 # Копіюємо statement файл, якщо існує
                 if [ -f "$statement_file" ]; then
                    echo "    Copying pair index $index (ID: $identifier): $statement_file"
-                   cp "$statement_file" "../../filtered/$SPECIAL_TEX_DIR/"
+                   mkdir -p "$target_dir_relative" # <--- Створюємо цільову папку ПЕРЕД копіюванням
+                   cp "$statement_file" "$target_dir_relative/"
                 else
                    echo "    Warning: Statement file $statement_file not found for index $index (ID: $identifier)"
                 fi
@@ -103,7 +108,8 @@ jobs:
                 # Копіюємо tutorial файл, якщо існує
                  if [ -f "$tutorial_file" ]; then
                    echo "    Copying pair index $index (ID: $identifier): $tutorial_file"
-                   cp "$tutorial_file" "../../filtered/$SPECIAL_TEX_DIR/"
+                   mkdir -p "$target_dir_relative" # <--- Створюємо цільову папку ПЕРЕД копіюванням
+                   cp "$tutorial_file" "$target_dir_relative/"
                  else
                    # Можна додати попередження, якщо tutorial відсутній для обраної пари
                    echo "    Warning: Tutorial file $tutorial_file not found for index $index (ID: $identifier)"
@@ -119,7 +125,7 @@ jobs:
         else
           echo "Warning: Special directory $SPECIAL_TEX_DIR not found in source repo."
         fi
-        
+
         # Повертаємося в корінь робочої області workflow
         cd ..
         echo "File filtering finished."
@@ -139,7 +145,8 @@ jobs:
         git config user.email "41898282+github-actions[bot]@users.noreply.github.com" # Рекомендований email для github-actions bot
 
         BRANCH_NAME="original-filtered"
-        git checkout -B "$BRANCH_NAME" # Створює нову гілку або перемикається на існуючу і скидає її до стану origin/BRANCH_NAME (якщо вона існує)
+        # Створює нову гілку або перемикається на існуючу. -B перезаписує локальну, якщо існує
+        git checkout -B "$BRANCH_NAME"
 
         # Додаємо всі зміни. Краще використовувати git status перед цим для перевірки
         git add .
@@ -151,5 +158,7 @@ jobs:
           echo "Committing changes..."
           git commit -m "Filtered fork from $SRC_REPO (custom logic for $SPECIAL_TEX_DIR)"
           echo "Pushing changes to $BRANCH_NAME..."
-          git push --force origin "$BRANCH_NAME" # Використовуємо --force, оскільки ми оновлюємо гілку зі згенерованим вмістом
+          # Використовуємо --force, оскільки ми повністю перезаписуємо цю гілку
+          # Переконайтеся, що це саме та поведінка, яка вам потрібна для цієї гілки
+          git push --force origin "$BRANCH_NAME"
         fi
