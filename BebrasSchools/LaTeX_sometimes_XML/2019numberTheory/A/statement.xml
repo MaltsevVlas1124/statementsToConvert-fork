@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<problem package="ru.ejudge.sample_contest" id="A" type="standard">
+  <statement language="uk_UA">
+    <description>
+      <p>
+		Для натурального числ<i>а&nbsp;N</i>, виведіть у порядку зростання всі його різні натуральні дільники.      
+      </p>
+      <p> 
+		<b> 
+		  Формат вхідних даних
+		</b> 
+		Вхідні дані слід прочитати зі стандартного входу (клавіатури). 
+		Це буде єдине натуральне число&nbsp;<i>N</i>. 1&le;<i>N</i>&le;1234567891011.
+	  </p>
+      <p> 
+		<b> 
+		  Формат результату
+		</b> 
+		Результат &mdash; послідовність усіх різних натуральних дільників, 
+		у порядку зростання &mdash; слід вивести на стандартний вихід (екран). 
+		Виводити обов’язково в один рядок, розділяючи пробілами.      
+		</p>  
+    </description>
+  </statement>
+  <examples>
+    <example>
+      <input>9</input>
+      <output>1 3 9</output>
+    </example>
+    <example>
+      <input>120</input>
+      <output>1 2 3 4 5 6 8 10 12 15 20 24 30 40 60 120</output>
+    </example>
+  </examples>
+</problem>
