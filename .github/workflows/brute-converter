@@ -1,0 +1,173 @@
+name: Convert LaTeX to Markdown
+
+on:
+  workflow_dispatch: # Дозволяє запускати вручну з вкладки Actions
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository with PAT
+        uses: actions/checkout@v4
+        with:
+          # Використовуйте PAT з правами на запис до репозиторію
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0 # Потрібно для створення та пушу нової гілки
+
+      - name: Install Pandoc and Python
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc python3 python3-pip
+          pip install GitPython # Встановлюємо GitPython, хоча він не використовується у скрипті нижче
+
+      - name: Clone source repository
+        run: |
+          # Клонуємо репозиторій з .tex файлами в окрему директорію
+          git clone --depth=1 --branch original-filtered https://github.com/MaltsevVlas1124/statementsToConvert-fork source-repo
+
+      - name: Prepare conversion script
+        run: |
+          # Створюємо Python скрипт для конвертації
+          cat << 'EOF' > convert.py
+          import os
+          import subprocess
+          import shutil
+
+          source_dir = 'source-repo'
+          target_dir = 'converted-files' # Тимчасова директорія для результатів
+          os.makedirs(target_dir, exist_ok=True)
+
+          print(f"Starting conversion from '{source_dir}' to '{target_dir}'")
+
+          conversion_success_count = 0
+          conversion_fail_count = 0
+          copy_count = 0
+
+          for root, dirs, files in os.walk(source_dir):
+              # Пропускаємо директорію .git
+              if '.git' in dirs:
+                  dirs.remove('.git')
+
+              rel_root = os.path.relpath(root, source_dir)
+              target_root = os.path.join(target_dir, rel_root)
+              # Створюємо відповідну структуру директорій у цільовій папці
+              os.makedirs(target_root, exist_ok=True)
+
+              for file in files:
+                  source_path = os.path.join(root, file)
+                  target_path = os.path.join(target_root, file)
+
+                  if file.endswith('.tex'):
+                      base_name = os.path.splitext(file)[0]
+                      md_target = os.path.join(target_root, base_name + '.md')
+                      print(f"Attempting to convert: {source_path} -> {md_target}")
+                      try:
+                          # Запускаємо pandoc для конвертації .tex в .md
+                          result = subprocess.run(
+                              ['pandoc', source_path, '-o', md_target, '--from=latex', '--to=markdown'],
+                              check=True, # Викине помилку, якщо pandoc поверне ненульовий код виходу
+                              capture_output=True, # Захоплюємо stdout та stderr
+                              text=True, # Декодуємо stdout/stderr як текст
+                              timeout=60 # Додаємо таймаут для pandoc
+                          )
+                          print(f"[SUCCESS] Converted {source_path} -> {md_target}")
+                          if result.stderr:
+                              print(f"  Pandoc warnings/info:\n{result.stderr}")
+                          conversion_success_count += 1
+                      except subprocess.CalledProcessError as e:
+                          # Якщо pandoc не зміг конвертувати, копіюємо оригінальний .tex файл
+                          shutil.copy2(source_path, target_path)
+                          print(f"[FAILED] Could not convert {source_path}. Copied original to {target_path}.")
+                          print(f"  Error: {e}")
+                          if e.stderr:
+                              print(f"  Pandoc stderr:\n{e.stderr}")
+                          if e.stdout:
+                              print(f"  Pandoc stdout:\n{e.stdout}")
+                          conversion_fail_count += 1
+                      except subprocess.TimeoutExpired:
+                          shutil.copy2(source_path, target_path)
+                          print(f"[TIMEOUT] Pandoc timed out for {source_path}. Copied original to {target_path}.")
+                          conversion_fail_count += 1
+                      except Exception as e:
+                          shutil.copy2(source_path, target_path)
+                          print(f"[ERROR] Unexpected error during conversion of {source_path}: {e}. Copied original.")
+                          conversion_fail_count += 1
+                  else:
+                      # Копіюємо всі інші файли (не .tex) без змін
+                      shutil.copy2(source_path, target_path)
+                      print(f"[COPIED] Copied non-TeX file: {source_path} -> {target_path}")
+                      copy_count += 1
+
+          print("\nConversion Summary:")
+          print(f"  Successfully converted: {conversion_success_count}")
+          print(f"  Failed conversions (original copied): {conversion_fail_count}")
+          print(f"  Other files copied: {copy_count}")
+
+          # Переміщуємо результат на один рівень вище для наступного кроку
+          # Це робиться, щоб уникнути конфліктів з git у поточному репозиторії
+          if os.path.exists('../converted-files'):
+              shutil.rmtree('../converted-files') # Видаляємо стару директорію, якщо вона існує
+          shutil.move(target_dir, '../converted-files')
+          print(f"Moved results to '../converted-files'")
+          EOF
+
+      - name: Run conversion script
+        run: |
+          python3 convert.py
+
+      - name: Create and push new branch
+        env:
+          # Переконайтесь, що секрет GH_TOKEN існує та має потрібні права
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          # --- ЗМІНЕНО ФОРМАТ НАЗВИ ГІЛКИ ТУТ ---
+          BRANCH_NAME="brute-convert-$(date +%Y.%m.%d)"
+          echo "Creating branch: $BRANCH_NAME"
+
+          # Налаштовуємо Git користувача для коміту
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Створюємо нову гілку
+          git checkout -b $BRANCH_NAME
+
+          # Очищуємо поточну робочу директорію від старих файлів (безпечний спосіб)
+          echo "Cleaning working directory..."
+          git rm -rf . > /dev/null # Видаляємо всі файли, що відстежуються git
+          # Видаляємо всі невідстежувані файли та директорії, крім .git
+          git clean -fdx
+
+          # Переміщуємо конвертовані файли в корінь репозиторію
+          echo "Moving converted files into repository..."
+          if [ -d "../converted-files" ]; then
+            # Використовуємо rsync для кращої обробки файлів/директорій
+            rsync -av --remove-source-files ../converted-files/ .
+            # Видаляємо порожню батьківську директорію, якщо вона залишилась
+            rmdir ../converted-files || true
+          else
+            echo "Warning: ../converted-files directory not found!"
+            # Можна додати обробку помилки тут, якщо це критично
+            # exit 1
+          fi
+
+          # Додаємо всі нові/змінені файли до індексу Git
+          echo "Adding files to git..."
+          git add .
+
+          # Перевіряємо, чи є зміни для коміту
+          if git diff --staged --quiet; then
+            echo "No changes to commit. Exiting."
+          else
+            # Створюємо коміт
+            echo "Creating commit..."
+            COMMIT_MESSAGE="Automated conversion: .tex to .md on $BRANCH_NAME"
+            git commit -m "$COMMIT_MESSAGE"
+
+            # Пушимо нову гілку до віддаленого репозиторію
+            # Використовуємо токен для автентифікації
+            # --force використовується для перезапису гілки, якщо вона вже існує (будьте обережні)
+            echo "Pushing branch $BRANCH_NAME to remote..."
+            git push https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }} $BRANCH_NAME --force
+            echo "Branch $BRANCH_NAME pushed successfully."
+          fi
